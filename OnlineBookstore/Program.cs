@@ -1,6 +1,6 @@
 namespace OnlineBookstore
 {
-    internal static class Program
+    public static class Program
     {
         /// <summary>
         ///  The main entry point for the application.
@@ -8,10 +8,16 @@ namespace OnlineBookstore
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            Form1 mainForm = new Form1(); // Create an instance of Form1
+            Form2 homeForm = new Form2(); // Create an instance of Form2
+
+            // Show Form1
+            mainForm.Show();
+
+            Application.Run();
         }
     }
 }

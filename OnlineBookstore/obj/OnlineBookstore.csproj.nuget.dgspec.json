@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Rayfi\\OneDrive\\Desktop\\CIS 560\\Final Project\\OnlineBookstore\\OnlineBookstore\\OnlineBookstore.csproj": {}
+    "C:\\Users\\devin\\OneDrive\\Desktop\\CIS 560\\Final Project\\OnlineBookstoreApp\\OnlineBookstore\\OnlineBookstore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Rayfi\\OneDrive\\Desktop\\CIS 560\\Final Project\\OnlineBookstore\\OnlineBookstore\\OnlineBookstore.csproj": {
+    "C:\\Users\\devin\\OneDrive\\Desktop\\CIS 560\\Final Project\\OnlineBookstoreApp\\OnlineBookstore\\OnlineBookstore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rayfi\\OneDrive\\Desktop\\CIS 560\\Final Project\\OnlineBookstore\\OnlineBookstore\\OnlineBookstore.csproj",
+        "projectUniqueName": "C:\\Users\\devin\\OneDrive\\Desktop\\CIS 560\\Final Project\\OnlineBookstoreApp\\OnlineBookstore\\OnlineBookstore.csproj",
         "projectName": "OnlineBookstore",
-        "projectPath": "C:\\Users\\Rayfi\\OneDrive\\Desktop\\CIS 560\\Final Project\\OnlineBookstore\\OnlineBookstore\\OnlineBookstore.csproj",
-        "packagesPath": "C:\\Users\\Rayfi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rayfi\\OneDrive\\Desktop\\CIS 560\\Final Project\\OnlineBookstore\\OnlineBookstore\\obj\\",
+        "projectPath": "C:\\Users\\devin\\OneDrive\\Desktop\\CIS 560\\Final Project\\OnlineBookstoreApp\\OnlineBookstore\\OnlineBookstore.csproj",
+        "packagesPath": "C:\\Users\\devin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\devin\\OneDrive\\Desktop\\CIS 560\\Final Project\\OnlineBookstoreApp\\OnlineBookstore\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Rayfi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\devin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -47,6 +43,10 @@
             "Microsoft.Data.SqlClient": {
               "target": "Package",
               "version": "[5.2.0, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.6, )"
             }
           },
           "imports": [
@@ -68,7 +68,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }
