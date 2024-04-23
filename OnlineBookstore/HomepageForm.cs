@@ -8,12 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
-using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Globalization;
 using Microsoft.VisualBasic;
 using System.Text.RegularExpressions;
 using System.Collections;
+using System.Data.SqlClient;
 
 namespace OnlineBookstore
 {
@@ -93,129 +93,113 @@ namespace OnlineBookstore
         }
         private void uxBuy_Click(object sender, EventArgs e)
         {
-
-            //in the future would open the buy form and somehow send all of the buylist to it
+            //BuyForm BuyForm1 = new BuyForm();
+            //BuyForm1.Show(price);
+            this.Hide();
         }
         //important all sql queres here
         #region Queries to complete
         private void ExecuteQueryTitle(string filter)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query =
-                @"QUERY";
+            string query = "SELECT Title, ISBN, WHERE IsRemoved = 1 && Title LIKE '%" + filter + "%';";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
-                conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable books = new DataTable();
+                adapter.Fill(books);
 
-                        uxBookList.Items.Add($"");
-                    }
-                }
+                uxBookList.DisplayMember = "Title";
+                uxBookList.ValueMember = "ISBN";
+                uxBookList.DataSource = books;
             }
         }
         private void ExecuteQueryAuthor(string filter)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query =
-                @"QUERY";
+            string query = "SELECT Title, Author, ISBN WHERE IsRemoved = 1 && Author LIKE '%" + filter + "%';";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
-                conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable books = new DataTable();
+                adapter.Fill(books);
 
-                        uxBookList.Items.Add($"");
-                    }
-                }
+                uxBookList.DisplayMember = "Author" + " " + "Title";//error here porbaly
+                uxBookList.DisplayMember = "Title";//error ehre porbably
+                uxBookList.ValueMember = "ISBN";
+                uxBookList.DataSource = books;
             }
         }
         private void ExecuteQueryISBN(string filter)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query =
-                @"QUERY";
+            string query = "SELECT ISBN WHERE IsRemoved = 1 && ISBN LIKE '%" + filter + "%';";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
-                conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader()) // getting ISBN error here
-                {
-                    while (reader.Read())
-                    {
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable books = new DataTable();
+                adapter.Fill(books);
 
-                        uxBookList.Items.Add($"");
-                    }
-                }
+                uxBookList.DisplayMember = "ISBN";
+                uxBookList.ValueMember = "ISBN";
+                uxBookList.DataSource = books;
             }
         }
         private void ExecuteQueryGenre(string filter)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query =
-                @"QUERY";
+            string query = "SELECT Genre, ISBN WHERE IsRemoved = 1 && Genre LIKE '%" + filter + "%';";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
-                conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader()) // getting ISBN error here
-                {
-                    while (reader.Read())
-                    {
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable books = new DataTable();
+                adapter.Fill(books);
 
-                        uxBookList.Items.Add($"");
-                    }
-                }
+                uxBookList.DisplayMember = "Genre";
+                uxBookList.ValueMember = "ISBN";
+                uxBookList.DataSource = books;
             }
         }
         private void ExecuteQueryPrice(string filter)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query =
-                @"QUERY";
+            string query = "SELECT Price, ISBN WHERE IsRemoved = 1 && Price LIKE '%" + filter + "%';";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
-                conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader()) // getting ISBN error here
-                {
-                    while (reader.Read())
-                    {
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable books = new DataTable();
+                adapter.Fill(books);
 
-                        uxBookList.Items.Add($"");
-                    }
-                }
+                uxBookList.DisplayMember = "Price";
+                uxBookList.ValueMember = "ISBN";
+                uxBookList.DataSource = books;
             }
         }
         private void ExecuteQueryPublisher(string filter)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query =
-                @"QUERY";
+            string query = "SELECT Publisher, ISBN WHERE IsRemoved = 1 && Publisher LIKE '%" + filter + "%';";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
-                conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader()) // getting ISBN error here
-                {
-                    while (reader.Read())
-                    {
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable books = new DataTable();
+                adapter.Fill(books);
 
-                        uxBookList.Items.Add($"");
-                    }
-                }
+                uxBookList.DisplayMember = "Publisher";
+                uxBookList.ValueMember = "ISBN";
+                uxBookList.DataSource = books;
             }
         }
         #endregion 
@@ -256,6 +240,7 @@ namespace OnlineBookstore
             if (uxBuyList.Items.Count <= 0)
             {
                 uxRemove.Enabled = false;
+                uxBuy.Enabled = false;
             }
         }
 
@@ -265,6 +250,7 @@ namespace OnlineBookstore
             if (uxBuyList.Items.Count >= 1)
             {
                 uxRemove.Enabled = true;
+                uxBuy.Enabled = true;
             }
 
         }
@@ -273,38 +259,5 @@ namespace OnlineBookstore
         {
 
         }
-        /*
-        private void LoadBookDetails(string isbn)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = @"
-                SELECT ISBN, Title, Authors.AuthorName, GenreID, Edition, Price, PublicationDate, Publisher, IsRemoved
-                FROM Books 
-                JOIN Authors ON Books.AuthorID = Authors.AuthorID 
-                WHERE ISBN = @ISBN";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@ISBN", isbn);
-
-                conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        uxUpdateISBNTextBox.Text = reader["ISBN"].ToString();
-                        uxUpdateTitleTextBox.Text = reader["Title"].ToString();
-                        uxUpdateAuthorTextBox.Text = reader["AuthorName"].ToString();
-                        uxUpdateEditionTextBox.Text = reader["Edition"].ToString();
-                        uxUpdatePriceTextBox.Text = reader["Price"].ToString();
-                        uxUpdatePublicationDateDatePicker.Value = Convert.ToDateTime(reader["PublicationDate"]);
-                        uxUpdatePublisherTextBox.Text = reader["Publisher"].ToString();
-                        uxUpdateGenreComboBox.SelectedValue = reader["GenreID"];
-                        uxIsRemovedCheckBox.Checked = Convert.ToBoolean(reader["IsRemoved"]);
-                    }
-                }
-            }
-        }*/
     }
 }
