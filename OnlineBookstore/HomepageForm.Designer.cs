@@ -28,171 +28,166 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.uxBookList = new System.Windows.Forms.ListBox();
-            this.uxBuyList = new System.Windows.Forms.ListBox();
-            this.e = new System.Windows.Forms.Label();
-            this.uxDisplaying = new System.Windows.Forms.Label();
-            this.uxPrice = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.uxBuy = new System.Windows.Forms.Button();
-            this.uxAdd = new System.Windows.Forms.Button();
-            this.uxRemove = new System.Windows.Forms.Button();
-            this.uxSearchButton = new System.Windows.Forms.Button();
-            this.uxSearchBox = new System.Windows.Forms.TextBox();
-            this.uxFilter = new System.Windows.Forms.ComboBox();
-            this.SuspendLayout();
+            uxBookList = new ListBox();
+            uxBuyList = new ListBox();
+            e = new Label();
+            uxDisplaying = new Label();
+            uxPrice = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            uxBuy = new Button();
+            uxAdd = new Button();
+            uxRemove = new Button();
+            uxSearchButton = new Button();
+            uxSearchBox = new TextBox();
+            uxFilter = new ComboBox();
+            SuspendLayout();
             // 
             // uxBookList
             // 
-            this.uxBookList.FormattingEnabled = true;
-            this.uxBookList.ItemHeight = 15;
-            this.uxBookList.Location = new System.Drawing.Point(39, 39);
-            this.uxBookList.Name = "uxBookList";
-            this.uxBookList.Size = new System.Drawing.Size(163, 214);
-            this.uxBookList.TabIndex = 0;
+            uxBookList.FormattingEnabled = true;
+            uxBookList.ItemHeight = 15;
+            uxBookList.Location = new Point(39, 39);
+            uxBookList.Name = "uxBookList";
+            uxBookList.Size = new Size(375, 214);
+            uxBookList.TabIndex = 0;
+            uxBookList.SelectedIndexChanged += uxBookList_SelectedIndexChanged;
             // 
             // uxBuyList
             // 
-            this.uxBuyList.FormattingEnabled = true;
-            this.uxBuyList.ItemHeight = 15;
-            this.uxBuyList.Location = new System.Drawing.Point(241, 39);
-            this.uxBuyList.Name = "uxBuyList";
-            this.uxBuyList.Size = new System.Drawing.Size(120, 94);
-            this.uxBuyList.TabIndex = 1;
-            this.uxBuyList.SelectedIndexChanged += new System.EventHandler(this.uxBuyList_SelectedIndexChanged);
+            uxBuyList.FormattingEnabled = true;
+            uxBuyList.ItemHeight = 15;
+            uxBuyList.Location = new Point(486, 46);
+            uxBuyList.Name = "uxBuyList";
+            uxBuyList.Size = new Size(352, 169);
+            uxBuyList.TabIndex = 1;
+            uxBuyList.SelectedIndexChanged += uxBuyList_SelectedIndexChanged;
             // 
             // e
             // 
-            this.e.AutoSize = true;
-            this.e.Location = new System.Drawing.Point(274, 21);
-            this.e.Name = "e";
-            this.e.Size = new System.Drawing.Size(67, 15);
-            this.e.TabIndex = 2;
-            this.e.Text = "Order Table";
+            e.AutoSize = true;
+            e.Location = new Point(519, 28);
+            e.Name = "e";
+            e.Size = new Size(67, 15);
+            e.TabIndex = 2;
+            e.Text = "Order Table";
             // 
             // uxDisplaying
             // 
-            this.uxDisplaying.AutoSize = true;
-            this.uxDisplaying.Location = new System.Drawing.Point(110, 21);
-            this.uxDisplaying.Name = "uxDisplaying";
-            this.uxDisplaying.Size = new System.Drawing.Size(0, 15);
-            this.uxDisplaying.TabIndex = 3;
-            this.uxDisplaying.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            uxDisplaying.AutoSize = true;
+            uxDisplaying.Location = new Point(110, 21);
+            uxDisplaying.Name = "uxDisplaying";
+            uxDisplaying.Size = new Size(0, 15);
+            uxDisplaying.TabIndex = 3;
+            uxDisplaying.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // uxPrice
             // 
-            this.uxPrice.AutoSize = true;
-            this.uxPrice.Location = new System.Drawing.Point(241, 141);
-            this.uxPrice.Name = "uxPrice";
-            this.uxPrice.Size = new System.Drawing.Size(0, 15);
-            this.uxPrice.TabIndex = 4;
+            uxPrice.AutoSize = true;
+            uxPrice.Location = new Point(759, 218);
+            uxPrice.Name = "uxPrice";
+            uxPrice.Size = new Size(35, 15);
+            uxPrice.TabIndex = 4;
+            uxPrice.Text = "Total:";
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(240, 164);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(45, 15);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Search:";
+            label4.AutoSize = true;
+            label4.Location = new Point(483, 238);
+            label4.Name = "label4";
+            label4.Size = new Size(45, 15);
+            label4.TabIndex = 5;
+            label4.Text = "Search:";
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(240, 202);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(61, 15);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "Search by:";
+            label5.AutoSize = true;
+            label5.Location = new Point(483, 276);
+            label5.Name = "label5";
+            label5.Size = new Size(61, 15);
+            label5.TabIndex = 6;
+            label5.Text = "Search by:";
             // 
             // uxBuy
             // 
-            this.uxBuy.Location = new System.Drawing.Point(367, 107);
-            this.uxBuy.Name = "uxBuy";
-            this.uxBuy.Size = new System.Drawing.Size(74, 28);
-            this.uxBuy.TabIndex = 7;
-            this.uxBuy.Text = "Buy";
-            this.uxBuy.UseVisualStyleBackColor = true;
-            this.uxBuy.Click += new System.EventHandler(this.uxBuy_Click);
+            uxBuy.Location = new Point(844, 112);
+            uxBuy.Name = "uxBuy";
+            uxBuy.Size = new Size(74, 28);
+            uxBuy.TabIndex = 7;
+            uxBuy.Text = "Buy";
+            uxBuy.UseVisualStyleBackColor = true;
+            uxBuy.Click += uxBuy_Click;
             // 
             // uxAdd
             // 
-            this.uxAdd.Location = new System.Drawing.Point(367, 39);
-            this.uxAdd.Name = "uxAdd";
-            this.uxAdd.Size = new System.Drawing.Size(74, 28);
-            this.uxAdd.TabIndex = 8;
-            this.uxAdd.Text = "Add";
-            this.uxAdd.UseVisualStyleBackColor = true;
-            this.uxAdd.Click += new System.EventHandler(this.uxAdd_Click);
+            uxAdd.Location = new Point(844, 44);
+            uxAdd.Name = "uxAdd";
+            uxAdd.Size = new Size(74, 28);
+            uxAdd.TabIndex = 8;
+            uxAdd.Text = "Add";
+            uxAdd.UseVisualStyleBackColor = true;
+            uxAdd.Click += uxAdd_Click;
             // 
             // uxRemove
             // 
-            this.uxRemove.Location = new System.Drawing.Point(367, 73);
-            this.uxRemove.Name = "uxRemove";
-            this.uxRemove.Size = new System.Drawing.Size(74, 28);
-            this.uxRemove.TabIndex = 9;
-            this.uxRemove.Text = "Remove";
-            this.uxRemove.UseVisualStyleBackColor = true;
-            this.uxRemove.Click += new System.EventHandler(this.uxRemove_Click);
+            uxRemove.Location = new Point(844, 78);
+            uxRemove.Name = "uxRemove";
+            uxRemove.Size = new Size(74, 28);
+            uxRemove.TabIndex = 9;
+            uxRemove.Text = "Remove";
+            uxRemove.UseVisualStyleBackColor = true;
+            uxRemove.Click += uxRemove_Click;
             // 
             // uxSearchButton
             // 
-            this.uxSearchButton.Location = new System.Drawing.Point(339, 230);
-            this.uxSearchButton.Name = "uxSearchButton";
-            this.uxSearchButton.Size = new System.Drawing.Size(75, 23);
-            this.uxSearchButton.TabIndex = 10;
-            this.uxSearchButton.Text = "Search";
-            this.uxSearchButton.UseVisualStyleBackColor = true;
-            this.uxSearchButton.Click += new System.EventHandler(this.uxSearchButton_Click);
+            uxSearchButton.Location = new Point(582, 304);
+            uxSearchButton.Name = "uxSearchButton";
+            uxSearchButton.Size = new Size(75, 23);
+            uxSearchButton.TabIndex = 10;
+            uxSearchButton.Text = "Search";
+            uxSearchButton.UseVisualStyleBackColor = true;
+            uxSearchButton.Click += uxSearchButton_Click;
             // 
             // uxSearchBox
             // 
-            this.uxSearchBox.Location = new System.Drawing.Point(319, 156);
-            this.uxSearchBox.Name = "uxSearchBox";
-            this.uxSearchBox.Size = new System.Drawing.Size(121, 23);
-            this.uxSearchBox.TabIndex = 11;
+            uxSearchBox.Location = new Point(562, 230);
+            uxSearchBox.Name = "uxSearchBox";
+            uxSearchBox.Size = new Size(121, 23);
+            uxSearchBox.TabIndex = 11;
             // 
             // uxFilter
             // 
-            this.uxFilter.FormattingEnabled = true;
-            this.uxFilter.Items.AddRange(new object[] {
-            "Title",
-            "Author",
-            "ISBN",
-            "Genre",
-            "Price",
-            "Publisher"});
-            this.uxFilter.Location = new System.Drawing.Point(319, 199);
-            this.uxFilter.Name = "uxFilter";
-            this.uxFilter.Size = new System.Drawing.Size(121, 23);
-            this.uxFilter.TabIndex = 12;
+            uxFilter.FormattingEnabled = true;
+            uxFilter.Items.AddRange(new object[] { "Title", "Author", "ISBN", "Genre", "Price", "Publisher" });
+            uxFilter.Location = new Point(562, 273);
+            uxFilter.Name = "uxFilter";
+            uxFilter.Size = new Size(121, 23);
+            uxFilter.TabIndex = 12;
             // 
             // HomepageForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(536, 305);
-            this.Controls.Add(this.uxFilter);
-            this.Controls.Add(this.uxSearchBox);
-            this.Controls.Add(this.uxSearchButton);
-            this.Controls.Add(this.uxRemove);
-            this.Controls.Add(this.uxAdd);
-            this.Controls.Add(this.uxBuy);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.uxPrice);
-            this.Controls.Add(this.uxDisplaying);
-            this.Controls.Add(this.e);
-            this.Controls.Add(this.uxBuyList);
-            this.Controls.Add(this.uxBookList);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Name = "HomepageForm";
-            this.Text = "Form2";
-            this.Load += new System.EventHandler(this.HomepageForm_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1110, 530);
+            Controls.Add(uxFilter);
+            Controls.Add(uxSearchBox);
+            Controls.Add(uxSearchButton);
+            Controls.Add(uxRemove);
+            Controls.Add(uxAdd);
+            Controls.Add(uxBuy);
+            Controls.Add(label5);
+            Controls.Add(label4);
+            Controls.Add(uxPrice);
+            Controls.Add(uxDisplaying);
+            Controls.Add(e);
+            Controls.Add(uxBuyList);
+            Controls.Add(uxBookList);
+            Margin = new Padding(3, 2, 3, 2);
+            Name = "HomepageForm";
+            Text = "Form2";
+            Load += HomepageForm_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

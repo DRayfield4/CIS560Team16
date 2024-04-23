@@ -75,10 +75,10 @@ namespace OnlineBookstore
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
             string query = @"
-        SELECT ISBN, Title, Authors.AuthorName, GenreID, Edition, Price, PublicationDate, Publisher, IsRemoved
-        FROM Books 
-        JOIN Authors ON Books.AuthorID = Authors.AuthorID 
-        WHERE ISBN = @ISBN";
+                SELECT ISBN, Title, Authors.AuthorName, GenreID, Edition, Price, PublicationDate, Publisher, IsRemoved
+                FROM Books 
+                JOIN Authors ON Books.AuthorID = Authors.AuthorID 
+                WHERE ISBN = @ISBN";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
