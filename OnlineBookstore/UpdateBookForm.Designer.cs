@@ -46,6 +46,7 @@
             uxUpdateISBNTextBox = new TextBox();
             uxUpdateBookButton = new Button();
             uxBooksListBox = new ListBox();
+            uxIsRemovedCheckBox = new CheckBox();
             SuspendLayout();
             // 
             // uxUpdatePublisherTextBox
@@ -181,7 +182,7 @@
             // 
             // uxUpdateBookButton
             // 
-            uxUpdateBookButton.Location = new Point(535, 380);
+            uxUpdateBookButton.Location = new Point(536, 387);
             uxUpdateBookButton.Name = "uxUpdateBookButton";
             uxUpdateBookButton.Size = new Size(94, 29);
             uxUpdateBookButton.TabIndex = 32;
@@ -199,11 +200,22 @@
             uxBooksListBox.TabIndex = 33;
             uxBooksListBox.SelectedIndexChanged += uxBooksListBox_SelectedIndexChanged;
             // 
+            // uxIsRemovedCheckBox
+            // 
+            uxIsRemovedCheckBox.AutoSize = true;
+            uxIsRemovedCheckBox.Location = new Point(522, 357);
+            uxIsRemovedCheckBox.Name = "uxIsRemovedCheckBox";
+            uxIsRemovedCheckBox.Size = new Size(108, 24);
+            uxIsRemovedCheckBox.TabIndex = 35;
+            uxIsRemovedCheckBox.Text = "Is Removed";
+            uxIsRemovedCheckBox.UseVisualStyleBackColor = true;
+            // 
             // UpdateBookForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(uxIsRemovedCheckBox);
             Controls.Add(uxBooksListBox);
             Controls.Add(uxUpdateBookButton);
             Controls.Add(uxUpdatePublisherTextBox);
@@ -248,5 +260,6 @@
         private TextBox uxUpdateISBNTextBox;
         private Button uxUpdateBookButton;
         private ListBox uxBooksListBox;
+        private CheckBox uxIsRemovedCheckBox;
     }
 }

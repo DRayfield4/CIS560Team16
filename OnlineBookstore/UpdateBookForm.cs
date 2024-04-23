@@ -74,7 +74,12 @@ namespace OnlineBookstore
         private void LoadBookDetails(string isbn)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = "SELECT ISBN, Title, Authors.AuthorName, GenreID, Edition, Price, PublicationDate, Publisher FROM Books JOIN Authors ON Books.AuthorID = Authors.AuthorID WHERE ISBN = @ISBN";
+            string query = @"
+        SELECT ISBN, Title, Authors.AuthorName, GenreID, Edition, Price, PublicationDate, Publisher, IsRemoved
+        FROM Books 
+        JOIN Authors ON Books.AuthorID = Authors.AuthorID 
+        WHERE ISBN = @ISBN";
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
@@ -93,6 +98,7 @@ namespace OnlineBookstore
                         uxUpdatePublicationDateDatePicker.Value = Convert.ToDateTime(reader["PublicationDate"]);
                         uxUpdatePublisherTextBox.Text = reader["Publisher"].ToString();
                         uxUpdateGenreComboBox.SelectedValue = reader["GenreID"];
+                        uxIsRemovedCheckBox.Checked = Convert.ToBoolean(reader["IsRemoved"]);
                     }
                 }
             }
@@ -108,11 +114,17 @@ namespace OnlineBookstore
             decimal price = decimal.Parse(uxUpdatePriceTextBox.Text);
             DateTime publicationDate = uxUpdatePublicationDateDatePicker.Value;
             string publisher = uxUpdatePublisherTextBox.Text;
+            bool isRemoved = uxIsRemovedCheckBox.Checked;
 
             int authorId = EnsureAuthorExists(author);
 
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = "UPDATE Books SET Title = @Title, AuthorID = @AuthorID, GenreID = @GenreID, Edition = @Edition, Price = @Price, PublicationDate = @PublicationDate, Publisher = @Publisher WHERE ISBN = @ISBN";
+            string query = @"
+                UPDATE Books 
+                SET Title = @Title, AuthorID = @AuthorID, GenreID = @GenreID, Edition = @Edition, Price = @Price, 
+                    PublicationDate = @PublicationDate, Publisher = @Publisher, IsRemoved = @IsRemoved 
+                WHERE ISBN = @ISBN";
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
@@ -124,6 +136,7 @@ namespace OnlineBookstore
                 cmd.Parameters.AddWithValue("@Price", price);
                 cmd.Parameters.AddWithValue("@PublicationDate", publicationDate);
                 cmd.Parameters.AddWithValue("@Publisher", publisher);
+                cmd.Parameters.AddWithValue("@IsRemoved", isRemoved);
 
                 conn.Open();
                 int result = cmd.ExecuteNonQuery();
