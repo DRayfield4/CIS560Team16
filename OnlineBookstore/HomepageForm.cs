@@ -110,7 +110,7 @@ namespace OnlineBookstore
                     break;
                 case "Publisher":
                     ExecuteQueryPublisher(searchterm);
-                    break;
+                    break; 
                 default:
                     MessageBox.Show("Something went wrong");
                     break;
