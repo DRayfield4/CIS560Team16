@@ -272,7 +272,7 @@ namespace OnlineBookstore
                 uxRemove.Enabled = true;
             }
             updatePrice();
-        }
+        } 
         private void updatePrice()
         {
             double price = 0.0;
