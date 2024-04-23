@@ -228,7 +228,28 @@ namespace OnlineBookstore
 
         private void uxAdd_Click(object sender, EventArgs e)
         {
-            uxBuyList.Items.Add(uxBookList.SelectedItem);
+            string isbn = (uxBookList.SelectedItem as dynamic).ISBN;
+            string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
+            string query = @"
+        SELECT ISBN, Title, Price
+        FROM Books 
+        WHERE ISBN = @ISBN";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@ISBN", isbn);
+
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        uxBuyList.Items.Add(reader["Title"].ToString() + reader["Price"].ToString());
+                    }
+                }
+            }
+            //uxBuyList.Items.Add(uxBookList.SelectedItem);
             if (uxRemove.Enabled = false && uxBuyList.Items.Count >= 1)
             {
                 uxRemove.Enabled = true;
@@ -238,9 +259,13 @@ namespace OnlineBookstore
         private void updatePrice()
         {
             double price = 0.0;
-            foreach (string item in uxBuyList.Items)
+            foreach (var item in uxBuyList.Items)
             {
-                price += double.Parse(item.Substring(item.IndexOf('$') + 1));//should work probably
+                uxBuyList.Items[uxBuyList.SelectedIndex];
+                string item2 = item.ToString();
+                int index = item2.IndexOf('$') + 1;
+                string substring = item2.Substring(index);
+                price += double.Parse(substring);//should work probably
             }
             uxPrice.Text = "Total: $" + price.ToString();
         }
