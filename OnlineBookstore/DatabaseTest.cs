@@ -6,7 +6,7 @@ namespace YourNamespace
 {
     public class DatabaseTest
     {
-        public void TestConnection()
+        public void TestConnection() 
         {
             try
             {
