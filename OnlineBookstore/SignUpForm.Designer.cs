@@ -1,6 +1,6 @@
 ﻿namespace OnlineBookstore
 {
-    partial class Form1
+    partial class SignUpForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            label1 = new Label();
             uxEmailLabel = new Label();
             uxPasswordLabel = new Label();
             uxEmailTextbox = new TextBox();
@@ -37,76 +35,59 @@
             uxWelcome = new Label();
             uxSignUpButton = new Button();
             uxGuestButton = new Button();
+            uxIsAdminCheckbox = new CheckBox();
+            uxAdminAccesButton = new Button();
             SuspendLayout();
-            // 
-            // button1
-            // 
-            button1.Location = new Point(773, 399);
-            button1.Margin = new Padding(3, 4, 3, 4);
-            button1.Name = "button1";
-            button1.Size = new Size(86, 31);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Visible = false;
-            button1.Click += button1_Click;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(793, 445);
-            label1.Name = "label1";
-            label1.Size = new Size(50, 20);
-            label1.TabIndex = 1;
-            label1.Text = "label1";
-            label1.Visible = false;
             // 
             // uxEmailLabel
             // 
             uxEmailLabel.AutoSize = true;
-            uxEmailLabel.Location = new Point(334, 188);
+            uxEmailLabel.Location = new Point(292, 141);
             uxEmailLabel.Name = "uxEmailLabel";
-            uxEmailLabel.Size = new Size(53, 20);
+            uxEmailLabel.Size = new Size(42, 15);
             uxEmailLabel.TabIndex = 2;
             uxEmailLabel.Text = "Email: ";
             // 
             // uxPasswordLabel
             // 
             uxPasswordLabel.AutoSize = true;
-            uxPasswordLabel.Location = new Point(310, 219);
+            uxPasswordLabel.Location = new Point(271, 164);
             uxPasswordLabel.Name = "uxPasswordLabel";
-            uxPasswordLabel.Size = new Size(77, 20);
+            uxPasswordLabel.Size = new Size(63, 15);
             uxPasswordLabel.TabIndex = 3;
             uxPasswordLabel.Text = "Password: ";
             // 
             // uxEmailTextbox
             // 
-            uxEmailTextbox.Location = new Point(393, 185);
+            uxEmailTextbox.Location = new Point(344, 139);
+            uxEmailTextbox.Margin = new Padding(3, 2, 3, 2);
             uxEmailTextbox.Name = "uxEmailTextbox";
-            uxEmailTextbox.Size = new Size(125, 27);
+            uxEmailTextbox.Size = new Size(110, 23);
             uxEmailTextbox.TabIndex = 4;
             // 
             // uxPasswordTextbox
             // 
-            uxPasswordTextbox.Location = new Point(393, 219);
+            uxPasswordTextbox.Location = new Point(344, 164);
+            uxPasswordTextbox.Margin = new Padding(3, 2, 3, 2);
             uxPasswordTextbox.Name = "uxPasswordTextbox";
-            uxPasswordTextbox.Size = new Size(125, 27);
+            uxPasswordTextbox.Size = new Size(110, 23);
             uxPasswordTextbox.TabIndex = 5;
             // 
             // uxWelcome
             // 
             uxWelcome.AutoSize = true;
-            uxWelcome.Location = new Point(370, 135);
+            uxWelcome.Location = new Point(324, 101);
             uxWelcome.Name = "uxWelcome";
-            uxWelcome.Size = new Size(177, 20);
+            uxWelcome.Size = new Size(141, 15);
             uxWelcome.TabIndex = 6;
             uxWelcome.Text = "Welcome! Please sign up!";
             // 
             // uxSignUpButton
             // 
-            uxSignUpButton.Location = new Point(408, 270);
+            uxSignUpButton.Location = new Point(357, 202);
+            uxSignUpButton.Margin = new Padding(3, 2, 3, 2);
             uxSignUpButton.Name = "uxSignUpButton";
-            uxSignUpButton.Size = new Size(94, 33);
+            uxSignUpButton.Size = new Size(82, 25);
             uxSignUpButton.TabIndex = 7;
             uxSignUpButton.Text = "Sign Up";
             uxSignUpButton.UseVisualStyleBackColor = true;
@@ -114,19 +95,42 @@
             // 
             // uxGuestButton
             // 
-            uxGuestButton.Location = new Point(382, 366);
+            uxGuestButton.Location = new Point(334, 274);
+            uxGuestButton.Margin = new Padding(3, 2, 3, 2);
             uxGuestButton.Name = "uxGuestButton";
-            uxGuestButton.Size = new Size(151, 35);
+            uxGuestButton.Size = new Size(132, 26);
             uxGuestButton.TabIndex = 8;
             uxGuestButton.Text = "Continue as guest";
             uxGuestButton.UseVisualStyleBackColor = true;
             uxGuestButton.Click += uxGuestButton_Click;
             // 
-            // Form1
+            // uxIsAdminCheckbox
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            uxIsAdminCheckbox.AutoSize = true;
+            uxIsAdminCheckbox.Location = new Point(470, 168);
+            uxIsAdminCheckbox.Name = "uxIsAdminCheckbox";
+            uxIsAdminCheckbox.Size = new Size(125, 19);
+            uxIsAdminCheckbox.TabIndex = 9;
+            uxIsAdminCheckbox.Text = "Are you an admin?";
+            uxIsAdminCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // uxAdminAccesButton
+            // 
+            uxAdminAccesButton.Location = new Point(680, 415);
+            uxAdminAccesButton.Name = "uxAdminAccesButton";
+            uxAdminAccesButton.Size = new Size(108, 23);
+            uxAdminAccesButton.TabIndex = 10;
+            uxAdminAccesButton.Text = "Admin Access";
+            uxAdminAccesButton.UseVisualStyleBackColor = true;
+            uxAdminAccesButton.Click += uxAdminAccesButton_Click;
+            // 
+            // SignUpForm
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(914, 600);
+            ClientSize = new Size(800, 450);
+            Controls.Add(uxAdminAccesButton);
+            Controls.Add(uxIsAdminCheckbox);
             Controls.Add(uxGuestButton);
             Controls.Add(uxSignUpButton);
             Controls.Add(uxWelcome);
@@ -134,19 +138,13 @@
             Controls.Add(uxEmailTextbox);
             Controls.Add(uxPasswordLabel);
             Controls.Add(uxEmailLabel);
-            Controls.Add(label1);
-            Controls.Add(button1);
-            Margin = new Padding(3, 4, 3, 4);
-            Name = "Form1";
-            Text = "Form1";
+            Name = "SignUpForm";
+            Text = "Sign Up";
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Button button1;
-        private Label label1;
         private Label uxEmailLabel;
         private Label uxPasswordLabel;
         private TextBox uxEmailTextbox;
@@ -154,5 +152,7 @@
         private Label uxWelcome;
         private Button uxSignUpButton;
         private Button uxGuestButton;
+        private CheckBox uxIsAdminCheckbox;
+        private Button uxAdminAccesButton;
     }
 }

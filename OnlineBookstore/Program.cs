@@ -11,8 +11,8 @@ namespace OnlineBookstore
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Form1 mainForm = new Form1(); // Create an instance of Form1
-            Form2 homeForm = new Form2(); // Create an instance of Form2
+            SignUpForm mainForm = new SignUpForm(); // Create an instance of Form1
+            HomepageForm homeForm = new HomepageForm(); // Create an instance of Form2
 
             // Show Form1
             mainForm.Show();
