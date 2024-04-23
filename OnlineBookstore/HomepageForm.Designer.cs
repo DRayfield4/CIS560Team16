@@ -39,8 +39,9 @@
             this.uxFilter = new System.Windows.Forms.ComboBox();
             this.uxDisplaying = new System.Windows.Forms.Label();
             this.uxSearchButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.remove = new System.Windows.Forms.Button();
+            this.uxAdd = new System.Windows.Forms.Button();
+            this.uxRemove = new System.Windows.Forms.Button();
+            this.uxPrice = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // uxBookList
@@ -54,7 +55,7 @@
             // 
             // uxSearchBox
             // 
-            this.uxSearchBox.Location = new System.Drawing.Point(430, 70);
+            this.uxSearchBox.Location = new System.Drawing.Point(536, 70);
             this.uxSearchBox.Name = "uxSearchBox";
             this.uxSearchBox.Size = new System.Drawing.Size(123, 23);
             this.uxSearchBox.TabIndex = 1;
@@ -62,7 +63,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(379, 73);
+            this.label1.Location = new System.Drawing.Point(485, 73);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 15);
             this.label1.TabIndex = 2;
@@ -72,7 +73,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(363, 131);
+            this.label2.Location = new System.Drawing.Point(469, 131);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(61, 15);
             this.label2.TabIndex = 3;
@@ -80,7 +81,7 @@
             // 
             // uxAdminAccess
             // 
-            this.uxAdminAccess.Location = new System.Drawing.Point(240, 184);
+            this.uxAdminAccess.Location = new System.Drawing.Point(397, 184);
             this.uxAdminAccess.Name = "uxAdminAccess";
             this.uxAdminAccess.Size = new System.Drawing.Size(120, 31);
             this.uxAdminAccess.TabIndex = 4;
@@ -90,9 +91,9 @@
             // 
             // uxBuy
             // 
-            this.uxBuy.Location = new System.Drawing.Point(315, 116);
+            this.uxBuy.Location = new System.Drawing.Point(240, 184);
             this.uxBuy.Name = "uxBuy";
-            this.uxBuy.Size = new System.Drawing.Size(42, 34);
+            this.uxBuy.Size = new System.Drawing.Size(64, 34);
             this.uxBuy.TabIndex = 5;
             this.uxBuy.Text = "Buy";
             this.uxBuy.UseVisualStyleBackColor = true;
@@ -105,8 +106,9 @@
             this.uxBuyList.ItemHeight = 15;
             this.uxBuyList.Location = new System.Drawing.Point(240, 31);
             this.uxBuyList.Name = "uxBuyList";
-            this.uxBuyList.Size = new System.Drawing.Size(120, 79);
+            this.uxBuyList.Size = new System.Drawing.Size(120, 109);
             this.uxBuyList.TabIndex = 6;
+            this.uxBuyList.SelectedIndexChanged += new System.EventHandler(this.uxBuyList_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -128,7 +130,7 @@
             "Genre",
             "Price",
             "Publisher"});
-            this.uxFilter.Location = new System.Drawing.Point(430, 131);
+            this.uxFilter.Location = new System.Drawing.Point(536, 131);
             this.uxFilter.Name = "uxFilter";
             this.uxFilter.Size = new System.Drawing.Size(121, 23);
             this.uxFilter.TabIndex = 8;
@@ -139,13 +141,13 @@
             this.uxDisplaying.AutoSize = true;
             this.uxDisplaying.Location = new System.Drawing.Point(85, 13);
             this.uxDisplaying.Name = "uxDisplaying";
-            this.uxDisplaying.Size = new System.Drawing.Size(76, 15);
+            this.uxDisplaying.Size = new System.Drawing.Size(0, 15);
             this.uxDisplaying.TabIndex = 9;
-            this.uxDisplaying.Text = "blank of max";
+            this.uxDisplaying.Click += new System.EventHandler(this.uxDisplaying_Click);
             // 
             // uxSearchButton
             // 
-            this.uxSearchButton.Location = new System.Drawing.Point(430, 184);
+            this.uxSearchButton.Location = new System.Drawing.Point(536, 184);
             this.uxSearchButton.Name = "uxSearchButton";
             this.uxSearchButton.Size = new System.Drawing.Size(121, 31);
             this.uxSearchButton.TabIndex = 10;
@@ -153,32 +155,42 @@
             this.uxSearchButton.UseVisualStyleBackColor = true;
             this.uxSearchButton.Click += new System.EventHandler(this.uxSearchButton_Click);
             // 
-            // button1
+            // uxAdd
             // 
-            this.button1.Location = new System.Drawing.Point(240, 116);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(42, 34);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Add";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.uxAdd.Location = new System.Drawing.Point(366, 31);
+            this.uxAdd.Name = "uxAdd";
+            this.uxAdd.Size = new System.Drawing.Size(70, 34);
+            this.uxAdd.TabIndex = 11;
+            this.uxAdd.Text = "Add";
+            this.uxAdd.UseVisualStyleBackColor = true;
+            this.uxAdd.Click += new System.EventHandler(this.uxAdd_Click);
             // 
-            // remove
+            // uxRemove
             // 
-            this.remove.Location = new System.Drawing.Point(331, 153);
-            this.remove.Name = "remove";
-            this.remove.Size = new System.Drawing.Size(75, 23);
-            this.remove.TabIndex = 12;
-            this.remove.Text = "remove";
-            this.remove.UseVisualStyleBackColor = true;
+            this.uxRemove.Location = new System.Drawing.Point(366, 76);
+            this.uxRemove.Name = "uxRemove";
+            this.uxRemove.Size = new System.Drawing.Size(70, 34);
+            this.uxRemove.TabIndex = 12;
+            this.uxRemove.Text = "Remove";
+            this.uxRemove.UseVisualStyleBackColor = true;
+            this.uxRemove.Click += new System.EventHandler(this.uxRemove_Click);
+            // 
+            // uxPrice
+            // 
+            this.uxPrice.AutoSize = true;
+            this.uxPrice.Location = new System.Drawing.Point(240, 114);
+            this.uxPrice.Name = "uxPrice";
+            this.uxPrice.Size = new System.Drawing.Size(0, 15);
+            this.uxPrice.TabIndex = 13;
             // 
             // HomepageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(561, 229);
-            this.Controls.Add(this.remove);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(705, 272);
+            this.Controls.Add(this.uxPrice);
+            this.Controls.Add(this.uxRemove);
+            this.Controls.Add(this.uxAdd);
             this.Controls.Add(this.uxSearchButton);
             this.Controls.Add(this.uxDisplaying);
             this.Controls.Add(this.uxFilter);
@@ -212,7 +224,8 @@
         private ComboBox uxFilter;
         private Label uxDisplaying;
         private Button uxSearchButton;
-        private Button button1;
-        private Button remove;
+        private Button uxAdd;
+        private Button uxRemove;
+        private Label uxPrice;
     }
 }

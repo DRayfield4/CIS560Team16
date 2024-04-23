@@ -10,22 +10,38 @@ using System.Windows.Forms;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Globalization;
+using Microsoft.VisualBasic;
+using System.Text.RegularExpressions;
 
 namespace OnlineBookstore
 {
     public partial class HomepageForm : Form
     {
         private bool _isadmin = false;
+        private int _maxbook = 0;
         public HomepageForm(bool isadmin)
         {
-            _isadmin = isadmin;
             InitializeComponent();
+            _isadmin = isadmin;
+
         }
 
 
 
         private void HomepageForm_Load(object sender, EventArgs e)
         {
+
+            uxBuy.Enabled = false;
+            uxRemove.Enabled = false;
+            //disables buttons
+            if(_isadmin == false)
+            {
+                uxAdminAccess.Hide();
+            }
+            //hids admin button if not admin
+
+
             //cant test if this works but quite sure it dosnt. 
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
             string query =
@@ -51,6 +67,8 @@ namespace OnlineBookstore
                     }
                 }
             }
+            _maxbook = uxBookList.Items.Count; //gets max book count
+            uxDisplaying.Text = _maxbook + " of " + _maxbook;
         }
 
         private void uxAdminAccess_Click(object sender, EventArgs e)
@@ -63,7 +81,7 @@ namespace OnlineBookstore
             }
             else
             {
-                MessageBox.Show("Admin access required");
+                MessageBox.Show("this message should play");
             }
 
         }
@@ -97,10 +115,12 @@ namespace OnlineBookstore
                     MessageBox.Show("Something went wrong");
                     break;
             }
+            uxDisplaying.Text = uxBookList.Items.Count + " of " + _maxbook;
         }
         private void uxBuy_Click(object sender, EventArgs e)
         {
-            //in the future would open the buy form
+
+            //in the future would open the buy form and somehow send all of the buylist to it
         }
         //important all sql queres here
         #region Queries to complete
@@ -244,10 +264,44 @@ namespace OnlineBookstore
 
         #endregion
 
-        private void button1_Click(object sender, EventArgs e)
+        private void uxAdd_Click(object sender, EventArgs e)
         {
             uxBuyList.Items.Add(uxFilter.SelectedItem);
+            if (uxRemove.Enabled = false && uxBuyList.Items.Count >= 1)
+            {
+                uxRemove.Enabled = true;
+            }
+            updatePrice();
+        }
+        private void updatePrice()
+        {
+            double price = 0.0;
+            foreach (string item in uxBuyList.Items)
+            {
+                price += double.Parse(item.Substring(item.IndexOf('$') + 1));   
+            }
+            uxPrice.Text = "Total: $" + price.ToString(); 
+        }
+        private void uxRemove_Click(object sender, EventArgs e)
+        {
+            if(uxBuyList.Items.Count - 1 <= 0)
+            {
+                uxRemove.Enabled = false;
+            }
+            updatePrice();
         }
 
+        private void uxBuyList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (uxBuyList.Items.Count >= 1)//if nothing selected remove button disabled
+            {
+                uxRemove.Enabled = true;
+            }
+        }
+
+        private void uxDisplaying_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
