@@ -289,7 +289,7 @@ namespace OnlineBookstore
                 uxRemove.Enabled = false;
             }
             updatePrice();
-        }
+        } 
 
         private void uxBuyList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -297,6 +297,7 @@ namespace OnlineBookstore
             {
                 uxRemove.Enabled = true;
             }
+
         }
 
         private void uxDisplaying_Click(object sender, EventArgs e)
