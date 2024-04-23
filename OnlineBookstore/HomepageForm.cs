@@ -95,7 +95,7 @@ namespace OnlineBookstore
         {
             //BuyForm BuyForm1 = new BuyForm();
             //BuyForm1.Show(price);
-            this.Hide();
+            //this.Hide();
         }
         //important all sql queres here
         #region Queries to complete
