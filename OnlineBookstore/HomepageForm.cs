@@ -91,11 +91,19 @@ namespace OnlineBookstore
             }
             uxDisplaying.Text = uxBookList.Items.Count + " of " + _maxbook;
         }
+
         private void uxBuy_Click(object sender, EventArgs e)
         {
+            List<string> selectedBooks = new List<string>();
+            foreach (var item in uxBuyList.Items)
+            {
+                selectedBooks.Add(item.ToString());
+            }
 
-            //in the future would open the buy form and somehow send all of the buylist to it
+            BuyForm buyForm = new BuyForm(selectedBooks);
+            buyForm.Show();
         }
+
         //important all sql queres here
         #region Queries to complete
         private void ExecuteQueryTitle(string filter)
@@ -261,50 +269,10 @@ namespace OnlineBookstore
 
         private void uxBuyList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //add funcanality so if nothing selected then disable button
             if (uxBuyList.Items.Count >= 1)
             {
                 uxRemove.Enabled = true;
             }
-
         }
-
-        private void uxBookList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-        /*
-        private void LoadBookDetails(string isbn)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = @"
-                SELECT ISBN, Title, Authors.AuthorName, GenreID, Edition, Price, PublicationDate, Publisher, IsRemoved
-                FROM Books 
-                JOIN Authors ON Books.AuthorID = Authors.AuthorID 
-                WHERE ISBN = @ISBN";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@ISBN", isbn);
-
-                conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        uxUpdateISBNTextBox.Text = reader["ISBN"].ToString();
-                        uxUpdateTitleTextBox.Text = reader["Title"].ToString();
-                        uxUpdateAuthorTextBox.Text = reader["AuthorName"].ToString();
-                        uxUpdateEditionTextBox.Text = reader["Edition"].ToString();
-                        uxUpdatePriceTextBox.Text = reader["Price"].ToString();
-                        uxUpdatePublicationDateDatePicker.Value = Convert.ToDateTime(reader["PublicationDate"]);
-                        uxUpdatePublisherTextBox.Text = reader["Publisher"].ToString();
-                        uxUpdateGenreComboBox.SelectedValue = reader["GenreID"];
-                        uxIsRemovedCheckBox.Checked = Convert.ToBoolean(reader["IsRemoved"]);
-                    }
-                }
-            }
-        }*/
     }
 }

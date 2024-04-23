@@ -214,3 +214,4 @@ C:\Users\devin\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineB
 C:\Users\devin\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\obj\Debug\net6.0-windows\OnlineBookstore.RemoveBookForm.resources
 C:\Users\devin\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\obj\Debug\net6.0-windows\OnlineBookstore.SignUpForm.resources
 C:\Users\devin\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\obj\Debug\net6.0-windows\OnlineBookstore.UpdateBookForm.resources
+C:\Users\Rayfi\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\obj\Debug\net6.0-windows\OnlineBookstore.BuyForm.resources

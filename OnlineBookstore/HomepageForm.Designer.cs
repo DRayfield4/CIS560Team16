@@ -51,7 +51,6 @@
             uxBookList.Name = "uxBookList";
             uxBookList.Size = new Size(375, 214);
             uxBookList.TabIndex = 0;
-            uxBookList.SelectedIndexChanged += uxBookList_SelectedIndexChanged;
             // 
             // uxBuyList
             // 
@@ -184,7 +183,7 @@
             Controls.Add(uxBookList);
             Margin = new Padding(3, 2, 3, 2);
             Name = "HomepageForm";
-            Text = "Form2";
+            Text = "HomePage";
             Load += HomepageForm_Load;
             ResumeLayout(false);
             PerformLayout();
