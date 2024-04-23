@@ -28,12 +28,57 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "RemoveBookForm";
+            uxBooksList = new ListBox();
+            uxRemoveBookButton = new Button();
+            uxUndoButton = new Button();
+            SuspendLayout();
+            // 
+            // uxBooksList
+            // 
+            uxBooksList.FormattingEnabled = true;
+            uxBooksList.ItemHeight = 20;
+            uxBooksList.Location = new Point(137, 59);
+            uxBooksList.Name = "uxBooksList";
+            uxBooksList.Size = new Size(538, 204);
+            uxBooksList.TabIndex = 0;
+            // 
+            // uxRemoveBookButton
+            // 
+            uxRemoveBookButton.Location = new Point(252, 325);
+            uxRemoveBookButton.Name = "uxRemoveBookButton";
+            uxRemoveBookButton.Size = new Size(94, 29);
+            uxRemoveBookButton.TabIndex = 1;
+            uxRemoveBookButton.Text = "Remove";
+            uxRemoveBookButton.UseVisualStyleBackColor = true;
+            uxRemoveBookButton.Click += uxRemoveBookButton_Click;
+            // 
+            // uxUndoButton
+            // 
+            uxUndoButton.Location = new Point(487, 325);
+            uxUndoButton.Name = "uxUndoButton";
+            uxUndoButton.Size = new Size(94, 29);
+            uxUndoButton.TabIndex = 2;
+            uxUndoButton.Text = "Undo";
+            uxUndoButton.UseVisualStyleBackColor = true;
+            uxUndoButton.Click += uxUndoButton_Click;
+            // 
+            // RemoveBookForm
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(uxUndoButton);
+            Controls.Add(uxRemoveBookButton);
+            Controls.Add(uxBooksList);
+            Name = "RemoveBookForm";
+            Text = "RemoveBookForm";
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private ListBox uxBooksList;
+        private Button uxRemoveBookButton;
+        private Button uxUndoButton;
     }
 }

@@ -91,7 +91,7 @@ namespace OnlineBookstore
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
                 conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader()) // getting ISBN error here
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -120,7 +120,7 @@ namespace OnlineBookstore
                 GROUP BY a.AuthorName 
                 ORDER BY TotalBooksSold DESC, TotalRevenue DESC";
 
-            using (SqlConnection conn = new SqlConnection(connectionString)) // Same ISBN error
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
                 conn.Open();

@@ -131,8 +131,6 @@ C:\Users\devin\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineB
 C:\Users\devin\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\bin\Debug\net6.0-windows\runtimes\win-x86\native\sni.dll
 C:\Users\devin\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\devin\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
-C:\Users\devin\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\obj\Debug\net6.0-windows\OnlineBookstore.Form1.resources
-C:\Users\devin\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\obj\Debug\net6.0-windows\OnlineBookstore.Form2.resources
 C:\Users\Rayfi\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\bin\Debug\net6.0-windows\OnlineBookstore.exe
 C:\Users\Rayfi\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\bin\Debug\net6.0-windows\OnlineBookstore.dll.config
 C:\Users\Rayfi\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\bin\Debug\net6.0-windows\OnlineBookstore.deps.json
@@ -209,3 +207,10 @@ C:\Users\Rayfi\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineB
 C:\Users\Rayfi\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\obj\Debug\net6.0-windows\OnlineBookstore.AddBookForm.resources
 C:\Users\Rayfi\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\obj\Debug\net6.0-windows\OnlineBookstore.RemoveBookForm.resources
 C:\Users\Rayfi\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\obj\Debug\net6.0-windows\OnlineBookstore.UpdateBookForm.resources
+C:\Users\devin\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\obj\Debug\net6.0-windows\OnlineBookstore.AddBookForm.resources
+C:\Users\devin\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\obj\Debug\net6.0-windows\OnlineBookstore.AdminForm.resources
+C:\Users\devin\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\obj\Debug\net6.0-windows\OnlineBookstore.AdminLogInForm.resources
+C:\Users\devin\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\obj\Debug\net6.0-windows\OnlineBookstore.HomepageForm.resources
+C:\Users\devin\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\obj\Debug\net6.0-windows\OnlineBookstore.RemoveBookForm.resources
+C:\Users\devin\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\obj\Debug\net6.0-windows\OnlineBookstore.SignUpForm.resources
+C:\Users\devin\OneDrive\Desktop\CIS 560\Final Project\OnlineBookstoreApp\OnlineBookstore\obj\Debug\net6.0-windows\OnlineBookstore.UpdateBookForm.resources
