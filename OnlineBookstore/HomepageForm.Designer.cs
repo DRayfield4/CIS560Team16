@@ -51,7 +51,6 @@
             this.uxBookList.Name = "uxBookList";
             this.uxBookList.Size = new System.Drawing.Size(163, 214);
             this.uxBookList.TabIndex = 0;
-            this.uxBookList.SelectedIndexChanged += new System.EventHandler(this.uxBookList_SelectedIndexChanged);
             // 
             // uxBuyList
             // 
@@ -84,7 +83,7 @@
             // uxPrice
             // 
             this.uxPrice.AutoSize = true;
-            this.uxPrice.Location = new System.Drawing.Point(224, 136);
+            this.uxPrice.Location = new System.Drawing.Point(241, 141);
             this.uxPrice.Name = "uxPrice";
             this.uxPrice.Size = new System.Drawing.Size(0, 15);
             this.uxPrice.TabIndex = 4;
@@ -92,7 +91,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(241, 156);
+            this.label4.Location = new System.Drawing.Point(240, 164);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 15);
             this.label4.TabIndex = 5;
@@ -101,7 +100,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(241, 199);
+            this.label5.Location = new System.Drawing.Point(240, 202);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(61, 15);
             this.label5.TabIndex = 6;
@@ -139,7 +138,7 @@
             // 
             // uxSearchButton
             // 
-            this.uxSearchButton.Location = new System.Drawing.Point(340, 230);
+            this.uxSearchButton.Location = new System.Drawing.Point(339, 230);
             this.uxSearchButton.Name = "uxSearchButton";
             this.uxSearchButton.Size = new System.Drawing.Size(75, 23);
             this.uxSearchButton.TabIndex = 10;
@@ -149,7 +148,7 @@
             // 
             // uxSearchBox
             // 
-            this.uxSearchBox.Location = new System.Drawing.Point(320, 153);
+            this.uxSearchBox.Location = new System.Drawing.Point(319, 156);
             this.uxSearchBox.Name = "uxSearchBox";
             this.uxSearchBox.Size = new System.Drawing.Size(121, 23);
             this.uxSearchBox.TabIndex = 11;
@@ -164,17 +163,16 @@
             "Genre",
             "Price",
             "Publisher"});
-            this.uxFilter.Location = new System.Drawing.Point(320, 191);
+            this.uxFilter.Location = new System.Drawing.Point(319, 199);
             this.uxFilter.Name = "uxFilter";
             this.uxFilter.Size = new System.Drawing.Size(121, 23);
             this.uxFilter.TabIndex = 12;
-            this.uxFilter.SelectedIndexChanged += new System.EventHandler(this.uxFilter_SelectedIndexChanged);
             // 
             // HomepageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(700, 338);
+            this.ClientSize = new System.Drawing.Size(536, 305);
             this.Controls.Add(this.uxFilter);
             this.Controls.Add(this.uxSearchBox);
             this.Controls.Add(this.uxSearchButton);

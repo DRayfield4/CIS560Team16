@@ -33,8 +33,6 @@ namespace OnlineBookstore
             uxBuy.Enabled = false;
             uxRemove.Enabled = false;
             //disables buttons
-            //hids admin button if not admin
-
 
             //cant test if this works but quite sure it dosnt. 
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
@@ -68,6 +66,7 @@ namespace OnlineBookstore
 
         private void uxSearchButton_Click(object sender, EventArgs e)
         {
+            //if user serches for "" should they be able to return a list of everythign just in a different order?
             string searchterm = uxSearchBox.Text.ToString();
             uxBookList.Items.Clear();
             switch (uxFilter.SelectedItem.ToString())
@@ -226,26 +225,10 @@ namespace OnlineBookstore
         #endregion 
         //important all sql queres here
 
-        #region ignore
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void uxFilter_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        #endregion
 
         private void uxAdd_Click(object sender, EventArgs e)
         {
-            uxBuyList.Items.Add(uxFilter.SelectedItem);
+            uxBuyList.Items.Add(uxBookList.SelectedItem);
             if (uxRemove.Enabled = false && uxBuyList.Items.Count >= 1)
             {
                 uxRemove.Enabled = true;
@@ -257,12 +240,13 @@ namespace OnlineBookstore
             double price = 0.0;
             foreach (string item in uxBuyList.Items)
             {
-                price += double.Parse(item.Substring(item.IndexOf('$') + 1));
+                price += double.Parse(item.Substring(item.IndexOf('$') + 1));//should work probably
             }
             uxPrice.Text = "Total: $" + price.ToString();
         }
         private void uxRemove_Click(object sender, EventArgs e)
         {
+            uxBuyList.Items.RemoveAt(uxBuyList.SelectedIndex);
             if (uxBuyList.Items.Count - 1 <= 0)
             {
                 uxRemove.Enabled = false;
@@ -272,7 +256,8 @@ namespace OnlineBookstore
 
         private void uxBuyList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (uxBuyList.Items.Count >= 1)//if nothing selected remove button disabled
+            //add funcanality so if nothing selected then disable button
+            if (uxBuyList.Items.Count >= 1)
             {
                 uxRemove.Enabled = true;
             }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Luke\\Source\\Repos\\CIS560Team16\\OnlineBookstore\\OnlineBookstore.csproj": {}
+    "C:\\Users\\Luke\\source\\repos\\CIS560Team16\\OnlineBookstore\\OnlineBookstore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Luke\\Source\\Repos\\CIS560Team16\\OnlineBookstore\\OnlineBookstore.csproj": {
+    "C:\\Users\\Luke\\source\\repos\\CIS560Team16\\OnlineBookstore\\OnlineBookstore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Luke\\Source\\Repos\\CIS560Team16\\OnlineBookstore\\OnlineBookstore.csproj",
+        "projectUniqueName": "C:\\Users\\Luke\\source\\repos\\CIS560Team16\\OnlineBookstore\\OnlineBookstore.csproj",
         "projectName": "OnlineBookstore",
-        "projectPath": "C:\\Users\\Luke\\Source\\Repos\\CIS560Team16\\OnlineBookstore\\OnlineBookstore.csproj",
+        "projectPath": "C:\\Users\\Luke\\source\\repos\\CIS560Team16\\OnlineBookstore\\OnlineBookstore.csproj",
         "packagesPath": "C:\\Users\\Luke\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Luke\\Source\\Repos\\CIS560Team16\\OnlineBookstore\\obj\\",
+        "outputPath": "C:\\Users\\Luke\\source\\repos\\CIS560Team16\\OnlineBookstore\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Luke\\AppData\\Roaming\\NuGet\\NuGet.Config",

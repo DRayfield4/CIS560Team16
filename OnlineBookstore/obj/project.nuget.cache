@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "d/9eDHER2ed6XnG9zNd5XUdJ4CySsdUegzkKf317A/TAw76RTdY2uqT6h753Ddv5yFY4/jTr7vxmJIlkQFOepg==",
+  "dgSpecHash": "8cIXeFZ20z/8cb4/v5uKuwP9GPOfHTf9rjeVFdcOmIFv1iI+GcKuGEyHbE6hOgXEtVpFwqcHcRg3og9dTEgaPQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Luke\\Source\\Repos\\CIS560Team16\\OnlineBookstore\\OnlineBookstore.csproj",
+  "projectFilePath": "C:\\Users\\Luke\\source\\repos\\CIS560Team16\\OnlineBookstore\\OnlineBookstore.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Luke\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Luke\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
