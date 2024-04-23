@@ -13,16 +13,18 @@ using System.Diagnostics;
 using System.Globalization;
 using Microsoft.VisualBasic;
 using System.Text.RegularExpressions;
+using System.Collections;
 
 namespace OnlineBookstore
 {
     public partial class HomepageForm : Form
     {
         private int _maxbook = 0;
+        private decimal price;
         public HomepageForm()
         {
             InitializeComponent();
-
+            this.Load += new System.EventHandler(this.HomepageForm_Load);
         }
 
 
@@ -34,33 +36,27 @@ namespace OnlineBookstore
             uxRemove.Enabled = false;
             //disables buttons
 
-            //cant test if this works but quite sure it dosnt. 
+            LoadBooks();
+            _maxbook = uxBookList.Items.Count; //gets max book count
+            uxDisplaying.Text = _maxbook + " of " + _maxbook;
+        }
+
+        private void LoadBooks()
+        {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query =
-            @"SELECT 
-                b.Title AS BookTitle, 
-                a.AuthorName
-            FROM Authors a
-            INNER JOIN Books b ON a.AuthorID = b.AuthorID
-            ORDER BY b.Title";
+            string query = "SELECT ISBN, Title, Price FROM Books WHERE IsRemoved = 1";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
-                conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        string bookTitle = reader["BookTitle"].ToString();
-                        string AuthorID = reader["AuthorID"].ToString();
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable books = new DataTable();
+                adapter.Fill(books);
 
-                        uxBookList.Items.Add($"{bookTitle} by {AuthorID}");
-                    }
-                }
+                uxBookList.DisplayMember = "Title";
+                uxBookList.ValueMember = "ISBN";
+                uxBookList.DataSource = books;
             }
-            _maxbook = uxBookList.Items.Count; //gets max book count
-            uxDisplaying.Text = _maxbook + " of " + _maxbook;
         }
 
 
@@ -112,7 +108,7 @@ namespace OnlineBookstore
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
                 conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader()) // getting ISBN error here
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -132,7 +128,7 @@ namespace OnlineBookstore
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
                 conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader()) // getting ISBN error here
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -228,55 +224,39 @@ namespace OnlineBookstore
 
         private void uxAdd_Click(object sender, EventArgs e)
         {
-            string isbn = (uxBookList.SelectedItem as dynamic).ISBN;
-            string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = @"
-        SELECT ISBN, Title, Price
-        FROM Books 
-        WHERE ISBN = @ISBN";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            if (uxBookList.SelectedItem != null)
             {
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@ISBN", isbn);
-
-                conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                DataRowView selectedBook = uxBookList.SelectedItem as DataRowView;
+                if (selectedBook != null)
                 {
-                    if (reader.Read())
-                    {
-                        uxBuyList.Items.Add(reader["Title"].ToString() + reader["Price"].ToString());
-                    }
+                    string title = selectedBook["Title"].ToString();
+                    decimal price = Convert.ToDecimal(selectedBook["Price"]);
+                    string displayText = $"{title} - ${price:F2}";
+
+                    uxBuyList.Items.Add(displayText);
+                    updatePrice(price);
                 }
             }
-            //uxBuyList.Items.Add(uxBookList.SelectedItem);
-            if (uxRemove.Enabled = false && uxBuyList.Items.Count >= 1)
-            {
-                uxRemove.Enabled = true;
-            }
-            updatePrice();
         }
-        private void updatePrice()
+
+        private void updatePrice(decimal prices)
         {
-            double price = 0.0;
-            foreach (var item in uxBuyList.Items)
-            {
-                uxBuyList.Items[uxBuyList.SelectedIndex];
-                string item2 = item.ToString();
-                int index = item2.IndexOf('$') + 1;
-                string substring = item2.Substring(index);
-                price += double.Parse(substring);//should work probably
-            }
+            price += prices;
             uxPrice.Text = "Total: $" + price.ToString();
         }
+
         private void uxRemove_Click(object sender, EventArgs e)
         {
+            string item2 = uxBuyList.Items[uxBuyList.SelectedIndex].ToString();
+            int index = item2.IndexOf('$') + 1;
+            string substring = item2.Substring(index);
+            price -= decimal.Parse(substring);
+            uxPrice.Text = "Total: $" + price.ToString();
             uxBuyList.Items.RemoveAt(uxBuyList.SelectedIndex);
-            if (uxBuyList.Items.Count - 1 <= 0)
+            if (uxBuyList.Items.Count <= 0)
             {
                 uxRemove.Enabled = false;
             }
-            updatePrice();
         }
 
         private void uxBuyList_SelectedIndexChanged(object sender, EventArgs e)
@@ -288,5 +268,43 @@ namespace OnlineBookstore
             }
 
         }
+
+        private void uxBookList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        /*
+        private void LoadBookDetails(string isbn)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
+            string query = @"
+                SELECT ISBN, Title, Authors.AuthorName, GenreID, Edition, Price, PublicationDate, Publisher, IsRemoved
+                FROM Books 
+                JOIN Authors ON Books.AuthorID = Authors.AuthorID 
+                WHERE ISBN = @ISBN";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@ISBN", isbn);
+
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        uxUpdateISBNTextBox.Text = reader["ISBN"].ToString();
+                        uxUpdateTitleTextBox.Text = reader["Title"].ToString();
+                        uxUpdateAuthorTextBox.Text = reader["AuthorName"].ToString();
+                        uxUpdateEditionTextBox.Text = reader["Edition"].ToString();
+                        uxUpdatePriceTextBox.Text = reader["Price"].ToString();
+                        uxUpdatePublicationDateDatePicker.Value = Convert.ToDateTime(reader["PublicationDate"]);
+                        uxUpdatePublisherTextBox.Text = reader["Publisher"].ToString();
+                        uxUpdateGenreComboBox.SelectedValue = reader["GenreID"];
+                        uxIsRemovedCheckBox.Checked = Convert.ToBoolean(reader["IsRemoved"]);
+                    }
+                }
+            }
+        }*/
     }
 }
