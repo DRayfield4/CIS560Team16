@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Rayfi\\OneDrive\\Desktop\\CIS 560\\Final Project\\OnlineBookstoreApp\\OnlineBookstore\\OnlineBookstore.csproj": {}
+    "C:\\Users\\Luke\\source\\repos\\CIS560Team16\\OnlineBookstore\\OnlineBookstore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Rayfi\\OneDrive\\Desktop\\CIS 560\\Final Project\\OnlineBookstoreApp\\OnlineBookstore\\OnlineBookstore.csproj": {
+    "C:\\Users\\Luke\\source\\repos\\CIS560Team16\\OnlineBookstore\\OnlineBookstore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rayfi\\OneDrive\\Desktop\\CIS 560\\Final Project\\OnlineBookstoreApp\\OnlineBookstore\\OnlineBookstore.csproj",
+        "projectUniqueName": "C:\\Users\\Luke\\source\\repos\\CIS560Team16\\OnlineBookstore\\OnlineBookstore.csproj",
         "projectName": "OnlineBookstore",
-        "projectPath": "C:\\Users\\Rayfi\\OneDrive\\Desktop\\CIS 560\\Final Project\\OnlineBookstoreApp\\OnlineBookstore\\OnlineBookstore.csproj",
-        "packagesPath": "C:\\Users\\Rayfi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rayfi\\OneDrive\\Desktop\\CIS 560\\Final Project\\OnlineBookstoreApp\\OnlineBookstore\\obj\\",
+        "projectPath": "C:\\Users\\Luke\\source\\repos\\CIS560Team16\\OnlineBookstore\\OnlineBookstore.csproj",
+        "packagesPath": "C:\\Users\\Luke\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Luke\\source\\repos\\CIS560Team16\\OnlineBookstore\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Rayfi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Luke\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -72,7 +68,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
