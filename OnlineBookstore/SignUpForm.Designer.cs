@@ -28,120 +28,120 @@
         /// </summary>
         private void InitializeComponent()
         {
-            uxEmailLabel = new Label();
-            uxPasswordLabel = new Label();
-            uxEmailTextbox = new TextBox();
-            uxPasswordTextbox = new TextBox();
-            uxWelcome = new Label();
-            uxSignUpButton = new Button();
-            uxGuestButton = new Button();
-            uxIsAdminCheckbox = new CheckBox();
-            uxAdminAccesButton = new Button();
-            SuspendLayout();
+            this.uxEmailLabel = new System.Windows.Forms.Label();
+            this.uxPasswordLabel = new System.Windows.Forms.Label();
+            this.uxEmailTextbox = new System.Windows.Forms.TextBox();
+            this.uxPasswordTextbox = new System.Windows.Forms.TextBox();
+            this.uxWelcome = new System.Windows.Forms.Label();
+            this.uxSignUpButton = new System.Windows.Forms.Button();
+            this.uxGuestButton = new System.Windows.Forms.Button();
+            this.uxIsAdminCheckbox = new System.Windows.Forms.CheckBox();
+            this.uxAdminAccesButton = new System.Windows.Forms.Button();
+            this.SuspendLayout();
             // 
             // uxEmailLabel
             // 
-            uxEmailLabel.AutoSize = true;
-            uxEmailLabel.Location = new Point(292, 141);
-            uxEmailLabel.Name = "uxEmailLabel";
-            uxEmailLabel.Size = new Size(42, 15);
-            uxEmailLabel.TabIndex = 2;
-            uxEmailLabel.Text = "Email: ";
+            this.uxEmailLabel.AutoSize = true;
+            this.uxEmailLabel.Location = new System.Drawing.Point(292, 141);
+            this.uxEmailLabel.Name = "uxEmailLabel";
+            this.uxEmailLabel.Size = new System.Drawing.Size(42, 15);
+            this.uxEmailLabel.TabIndex = 2;
+            this.uxEmailLabel.Text = "Email: ";
             // 
             // uxPasswordLabel
             // 
-            uxPasswordLabel.AutoSize = true;
-            uxPasswordLabel.Location = new Point(271, 164);
-            uxPasswordLabel.Name = "uxPasswordLabel";
-            uxPasswordLabel.Size = new Size(63, 15);
-            uxPasswordLabel.TabIndex = 3;
-            uxPasswordLabel.Text = "Password: ";
+            this.uxPasswordLabel.AutoSize = true;
+            this.uxPasswordLabel.Location = new System.Drawing.Point(271, 164);
+            this.uxPasswordLabel.Name = "uxPasswordLabel";
+            this.uxPasswordLabel.Size = new System.Drawing.Size(63, 15);
+            this.uxPasswordLabel.TabIndex = 3;
+            this.uxPasswordLabel.Text = "Password: ";
             // 
             // uxEmailTextbox
             // 
-            uxEmailTextbox.Location = new Point(344, 139);
-            uxEmailTextbox.Margin = new Padding(3, 2, 3, 2);
-            uxEmailTextbox.Name = "uxEmailTextbox";
-            uxEmailTextbox.Size = new Size(110, 23);
-            uxEmailTextbox.TabIndex = 4;
+            this.uxEmailTextbox.Location = new System.Drawing.Point(344, 139);
+            this.uxEmailTextbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.uxEmailTextbox.Name = "uxEmailTextbox";
+            this.uxEmailTextbox.Size = new System.Drawing.Size(110, 23);
+            this.uxEmailTextbox.TabIndex = 4;
             // 
             // uxPasswordTextbox
             // 
-            uxPasswordTextbox.Location = new Point(344, 164);
-            uxPasswordTextbox.Margin = new Padding(3, 2, 3, 2);
-            uxPasswordTextbox.Name = "uxPasswordTextbox";
-            uxPasswordTextbox.Size = new Size(110, 23);
-            uxPasswordTextbox.TabIndex = 5;
+            this.uxPasswordTextbox.Location = new System.Drawing.Point(344, 164);
+            this.uxPasswordTextbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.uxPasswordTextbox.Name = "uxPasswordTextbox";
+            this.uxPasswordTextbox.Size = new System.Drawing.Size(110, 23);
+            this.uxPasswordTextbox.TabIndex = 5;
             // 
             // uxWelcome
             // 
-            uxWelcome.AutoSize = true;
-            uxWelcome.Location = new Point(324, 101);
-            uxWelcome.Name = "uxWelcome";
-            uxWelcome.Size = new Size(141, 15);
-            uxWelcome.TabIndex = 6;
-            uxWelcome.Text = "Welcome! Please sign up!";
+            this.uxWelcome.AutoSize = true;
+            this.uxWelcome.Location = new System.Drawing.Point(324, 101);
+            this.uxWelcome.Name = "uxWelcome";
+            this.uxWelcome.Size = new System.Drawing.Size(141, 15);
+            this.uxWelcome.TabIndex = 6;
+            this.uxWelcome.Text = "Welcome! Please sign up!";
             // 
             // uxSignUpButton
             // 
-            uxSignUpButton.Location = new Point(357, 202);
-            uxSignUpButton.Margin = new Padding(3, 2, 3, 2);
-            uxSignUpButton.Name = "uxSignUpButton";
-            uxSignUpButton.Size = new Size(82, 25);
-            uxSignUpButton.TabIndex = 7;
-            uxSignUpButton.Text = "Sign Up";
-            uxSignUpButton.UseVisualStyleBackColor = true;
-            uxSignUpButton.Click += EventHandlerSignUpButton;
+            this.uxSignUpButton.Location = new System.Drawing.Point(357, 202);
+            this.uxSignUpButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.uxSignUpButton.Name = "uxSignUpButton";
+            this.uxSignUpButton.Size = new System.Drawing.Size(82, 25);
+            this.uxSignUpButton.TabIndex = 7;
+            this.uxSignUpButton.Text = "Sign Up";
+            this.uxSignUpButton.UseVisualStyleBackColor = true;
             // 
             // uxGuestButton
             // 
-            uxGuestButton.Location = new Point(334, 274);
-            uxGuestButton.Margin = new Padding(3, 2, 3, 2);
-            uxGuestButton.Name = "uxGuestButton";
-            uxGuestButton.Size = new Size(132, 26);
-            uxGuestButton.TabIndex = 8;
-            uxGuestButton.Text = "Continue as guest";
-            uxGuestButton.UseVisualStyleBackColor = true;
-            uxGuestButton.Click += uxGuestButton_Click;
+            this.uxGuestButton.Location = new System.Drawing.Point(334, 274);
+            this.uxGuestButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.uxGuestButton.Name = "uxGuestButton";
+            this.uxGuestButton.Size = new System.Drawing.Size(132, 26);
+            this.uxGuestButton.TabIndex = 8;
+            this.uxGuestButton.Text = "Continue as guest";
+            this.uxGuestButton.UseVisualStyleBackColor = true;
+            this.uxGuestButton.Click += new System.EventHandler(this.uxGuestButton_Click);
             // 
             // uxIsAdminCheckbox
             // 
-            uxIsAdminCheckbox.AutoSize = true;
-            uxIsAdminCheckbox.Location = new Point(470, 168);
-            uxIsAdminCheckbox.Name = "uxIsAdminCheckbox";
-            uxIsAdminCheckbox.Size = new Size(125, 19);
-            uxIsAdminCheckbox.TabIndex = 9;
-            uxIsAdminCheckbox.Text = "Are you an admin?";
-            uxIsAdminCheckbox.UseVisualStyleBackColor = true;
+            this.uxIsAdminCheckbox.AutoSize = true;
+            this.uxIsAdminCheckbox.Location = new System.Drawing.Point(470, 168);
+            this.uxIsAdminCheckbox.Name = "uxIsAdminCheckbox";
+            this.uxIsAdminCheckbox.Size = new System.Drawing.Size(125, 19);
+            this.uxIsAdminCheckbox.TabIndex = 9;
+            this.uxIsAdminCheckbox.Text = "Are you an admin?";
+            this.uxIsAdminCheckbox.UseVisualStyleBackColor = true;
             // 
             // uxAdminAccesButton
             // 
-            uxAdminAccesButton.Location = new Point(680, 415);
-            uxAdminAccesButton.Name = "uxAdminAccesButton";
-            uxAdminAccesButton.Size = new Size(108, 23);
-            uxAdminAccesButton.TabIndex = 10;
-            uxAdminAccesButton.Text = "Admin Access";
-            uxAdminAccesButton.UseVisualStyleBackColor = true;
-            uxAdminAccesButton.Click += uxAdminAccesButton_Click;
+            this.uxAdminAccesButton.Location = new System.Drawing.Point(680, 415);
+            this.uxAdminAccesButton.Name = "uxAdminAccesButton";
+            this.uxAdminAccesButton.Size = new System.Drawing.Size(108, 23);
+            this.uxAdminAccesButton.TabIndex = 10;
+            this.uxAdminAccesButton.Text = "Admin Access";
+            this.uxAdminAccesButton.UseVisualStyleBackColor = true;
+            this.uxAdminAccesButton.Click += new System.EventHandler(this.uxAdminAccesButton_Click);
             // 
             // SignUpForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(uxAdminAccesButton);
-            Controls.Add(uxIsAdminCheckbox);
-            Controls.Add(uxGuestButton);
-            Controls.Add(uxSignUpButton);
-            Controls.Add(uxWelcome);
-            Controls.Add(uxPasswordTextbox);
-            Controls.Add(uxEmailTextbox);
-            Controls.Add(uxPasswordLabel);
-            Controls.Add(uxEmailLabel);
-            Name = "SignUpForm";
-            Text = "Sign Up";
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.uxAdminAccesButton);
+            this.Controls.Add(this.uxIsAdminCheckbox);
+            this.Controls.Add(this.uxGuestButton);
+            this.Controls.Add(this.uxSignUpButton);
+            this.Controls.Add(this.uxWelcome);
+            this.Controls.Add(this.uxPasswordTextbox);
+            this.Controls.Add(this.uxEmailTextbox);
+            this.Controls.Add(this.uxPasswordLabel);
+            this.Controls.Add(this.uxEmailLabel);
+            this.Name = "SignUpForm";
+            this.Text = "Sign Up";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

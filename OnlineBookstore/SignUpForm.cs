@@ -32,18 +32,8 @@ namespace OnlineBookstore
             string hashedPassword = HashPassword(password);
             if (InsertUserIntoDatabase(email, hashedPassword, isAdmin))
             {
-                if (isAdmin)
-                {
-                    AdminLogInForm adminLogInForm = new AdminLogInForm();
-                    adminLogInForm.Show();
-                    this.Close();
-                }
-                else
-                {
-                    HomepageForm homeForm = new HomepageForm();
-                    homeForm.Show();
-                    this.Close();
-                }
+                HomepageForm homeForm = new HomepageForm(isAdmin);
+                homeForm.Show();
             }
             else
             {
@@ -95,7 +85,8 @@ namespace OnlineBookstore
 
         private void uxGuestButton_Click(object sender, EventArgs e)
         {
-            HomepageForm homeForm = new HomepageForm();
+            bool isadmin = uxIsAdminCheckbox.Checked;
+            HomepageForm homeForm = new HomepageForm(isadmin);
             homeForm.Show();
             this.Close();
         }

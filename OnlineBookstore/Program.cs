@@ -12,7 +12,7 @@ namespace OnlineBookstore
             Application.SetCompatibleTextRenderingDefault(false);
 
             SignUpForm mainForm = new SignUpForm(); // Create an instance of Form1
-            HomepageForm homeForm = new HomepageForm(); // Create an instance of Form2
+            //HomepageForm homeForm = new HomepageForm(); // Create an instance of Form2
 
             // Show Form1
             mainForm.Show();
