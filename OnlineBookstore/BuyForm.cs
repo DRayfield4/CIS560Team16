@@ -22,19 +22,28 @@ namespace OnlineBookstore
     {
         private List<string> _booksToPurchase;
 
-        public BuyForm(List<string> booksToPurchase)
+        private int _userID;
+
+        public BuyForm(List<string> booksToPurchase, int userID)
         {
             InitializeComponent();
             _booksToPurchase = booksToPurchase;
+            _userID = userID;
             DisplayBooks();
         }
 
         private void DisplayBooks()
         {
+            decimal total = 0m;
             foreach (string book in _booksToPurchase)
             {
                 uxBuyList.Items.Add(book);
+                int index = book.LastIndexOf('$') + 1;
+                string priceStr = book.Substring(index);
+                decimal price = decimal.Parse(priceStr);
+                total += price;
             }
+            uxTotalLabel.Text = $"Total: ${total:F2}";
         }
 
         private void uxConfirmPurchase_Click(object sender, EventArgs e)
@@ -46,7 +55,7 @@ namespace OnlineBookstore
 
             // ADD ERROR HANDLING FOR FORMATTING
 
-            if(InsertCustomerData(firstName, lastName, address, phone))
+            if (InsertCustomerData(firstName, lastName, address, phone))
             {
                 MessageBox.Show("Purchase confirmed!");
                 this.Close();
@@ -56,7 +65,7 @@ namespace OnlineBookstore
         private bool InsertCustomerData(string firstName, string lastName, string address, string phone)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string customerQuery = "INSERT INTO Customers (FirstName, LastName, Address, Phone) VALUES (@FirstName, @LastName, @Address, @Phone);";
+            string customerQuery = "INSERT INTO Customers (UserID, FirstName, LastName, Address, Phone) VALUES (@UserID, @FirstName, @LastName, @Address, @Phone);";
 
             try
             {
@@ -65,6 +74,7 @@ namespace OnlineBookstore
                     conn.Open();
                     using (SqlCommand cmd = new SqlCommand(customerQuery, conn))
                     {
+                        cmd.Parameters.AddWithValue("@UserID", _userID);
                         cmd.Parameters.AddWithValue("@FirstName", firstName);
                         cmd.Parameters.AddWithValue("@LastName", lastName);
                         cmd.Parameters.AddWithValue("@Address", address);

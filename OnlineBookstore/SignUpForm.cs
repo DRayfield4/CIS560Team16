@@ -23,31 +23,23 @@ namespace OnlineBookstore
             string password = uxPasswordTextbox.Text;
             bool isAdmin = uxIsAdminCheckbox.Checked;
 
-            if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
                 MessageBox.Show("Please enter an email and password.");
                 return;
             }
 
             string hashedPassword = HashPassword(password);
-            if (InsertUserIntoDatabase(email, hashedPassword, isAdmin))
+            int userId = GetUserOrCreate(email, hashedPassword, isAdmin);
+            if (userId > 0)
             {
-                if (isAdmin)
-                {
-                    AdminLogInForm adminLogInForm = new AdminLogInForm();
-                    adminLogInForm.Show();
-                    this.Close();
-                }
-                else
-                {
-                    HomepageForm homeForm = new HomepageForm();
-                    homeForm.Show();
-                    this.Close();
-                }
+                HomepageForm homeForm = new HomepageForm(userId);
+                homeForm.Show();
+                this.Close();
             }
             else
             {
-                MessageBox.Show("Sign up failed. Email might already be used.");
+                MessageBox.Show("Sign up or login failed. Please check your details or try a different email.");
             }
         }
 
@@ -65,39 +57,47 @@ namespace OnlineBookstore
             }
         }
 
-        private bool InsertUserIntoDatabase(string email, string passwordHash, bool isAdmin)
+        private int GetUserOrCreate(string email, string passwordHash, bool isAdmin)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = "INSERT INTO Users (Email, PasswordHash, IsAdmin) VALUES (@Email, @PasswordHash, @IsAdmin)";
+            // Check if the user already exists
+            string checkQuery = "SELECT UserID FROM Users WHERE Email = @Email AND PasswordHash = @PasswordHash";
+
+            // If not exists, insert new user
+            string insertQuery = "INSERT INTO Users (Email, PasswordHash, IsAdmin) OUTPUT INSERTED.UserID VALUES (@Email, @PasswordHash, @IsAdmin)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand command = new SqlCommand(query, connection))
+                connection.Open();
+
+                // First, try to get an existing user
+                using (SqlCommand command = new SqlCommand(checkQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@Email", email);
+                    command.Parameters.AddWithValue("@PasswordHash", passwordHash);
+                    object result = command.ExecuteScalar();
+
+                    if (result != null)
+                        return (int)result;  // User exists, return existing UserID
+                }
+
+                // If no existing user, create a new one
+                using (SqlCommand command = new SqlCommand(insertQuery, connection))
                 {
                     command.Parameters.AddWithValue("@Email", email);
                     command.Parameters.AddWithValue("@PasswordHash", passwordHash);
                     command.Parameters.AddWithValue("@IsAdmin", isAdmin);
-
-                    connection.Open();
                     try
                     {
-                        command.ExecuteNonQuery();
-                        return true; // Success
+                        return (int)command.ExecuteScalar();  // Return new UserID
                     }
                     catch (SqlException ex)
                     {
                         MessageBox.Show("SQL Error: " + ex.Message);
-                        return false; // Fail
+                        return -1;  // Error or duplicate key
                     }
                 }
             }
-        }
-
-        private void uxGuestButton_Click(object sender, EventArgs e)
-        {
-            HomepageForm homeForm = new HomepageForm();
-            homeForm.Show();
-            this.Close();
         }
 
         private void uxAdminAccesButton_Click(object sender, EventArgs e)

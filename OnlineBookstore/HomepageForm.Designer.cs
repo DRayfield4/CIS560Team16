@@ -74,7 +74,7 @@
             // uxDisplaying
             // 
             uxDisplaying.AutoSize = true;
-            uxDisplaying.Location = new Point(110, 21);
+            uxDisplaying.Location = new Point(39, 21);
             uxDisplaying.Name = "uxDisplaying";
             uxDisplaying.Size = new Size(0, 15);
             uxDisplaying.TabIndex = 3;

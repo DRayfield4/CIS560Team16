@@ -40,7 +40,7 @@
             label3 = new Label();
             label4 = new Label();
             uxConfirmPurchase = new Button();
-            label5 = new Label();
+            uxTotalLabel = new Label();
             SuspendLayout();
             // 
             // uxCredentialsLabel
@@ -145,21 +145,21 @@
             uxConfirmPurchase.UseVisualStyleBackColor = true;
             uxConfirmPurchase.Click += uxConfirmPurchase_Click;
             // 
-            // label5
+            // uxTotalLabel
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(229, 210);
-            label5.Name = "label5";
-            label5.Size = new Size(35, 15);
-            label5.TabIndex = 12;
-            label5.Text = "Total:";
+            uxTotalLabel.AutoSize = true;
+            uxTotalLabel.Location = new Point(229, 210);
+            uxTotalLabel.Name = "uxTotalLabel";
+            uxTotalLabel.Size = new Size(35, 15);
+            uxTotalLabel.TabIndex = 12;
+            uxTotalLabel.Text = "Total:";
             // 
             // BuyForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(664, 287);
-            Controls.Add(label5);
+            Controls.Add(uxTotalLabel);
             Controls.Add(uxConfirmPurchase);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -192,6 +192,6 @@
         private Label label3;
         private Label label4;
         private Button uxConfirmPurchase;
-        private Label label5;
+        private Label uxTotalLabel;
     }
 }

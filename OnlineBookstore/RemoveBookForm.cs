@@ -31,7 +31,7 @@ namespace OnlineBookstore
         private void LoadBooks()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = "SELECT ISBN, Title FROM Books WHERE IsRemoved = 1";
+            string query = "SELECT ISBN, Title FROM Books WHERE IsRemoved = 0";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -63,7 +63,7 @@ namespace OnlineBookstore
         private void SoftDeleteBook(string isbn)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = "UPDATE Books SET IsRemoved = 0 WHERE ISBN = @ISBN";
+            string query = "UPDATE Books SET IsRemoved = 1 WHERE ISBN = @ISBN";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -92,7 +92,7 @@ namespace OnlineBookstore
         private void UndoSoftDelete(string isbn)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = "UPDATE Books SET IsRemoved = 1 WHERE ISBN = @ISBN";
+            string query = "UPDATE Books SET IsRemoved = 0 WHERE ISBN = @ISBN";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {

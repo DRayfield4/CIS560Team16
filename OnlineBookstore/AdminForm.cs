@@ -235,7 +235,7 @@ namespace OnlineBookstore
                     {
                         string category = reader["CustomerFrequencyCategory"].ToString();
                         int numberOfCustomers = (int)reader["NumberOfCustomers"];
-                        double percentageOfTotalCustomers = (double)reader["PercentageOfTotalCustomers"];
+                        double percentageOfTotalCustomers = Convert.ToDouble(reader["PercentageOfTotalCustomers"]);
 
                         uxResultListBox.Items.Add($"{category}: {numberOfCustomers} Customers ({percentageOfTotalCustomers:N2}%)");
                     }

@@ -49,80 +49,81 @@
             // 
             // uxAddISBNTextBox
             // 
-            uxAddISBNTextBox.Location = new Point(312, 61);
+            uxAddISBNTextBox.Location = new Point(273, 46);
+            uxAddISBNTextBox.Margin = new Padding(3, 2, 3, 2);
             uxAddISBNTextBox.Name = "uxAddISBNTextBox";
-            uxAddISBNTextBox.Size = new Size(125, 27);
+            uxAddISBNTextBox.Size = new Size(110, 23);
             uxAddISBNTextBox.TabIndex = 0;
             // 
             // uxAddISBNLabel
             // 
             uxAddISBNLabel.AutoSize = true;
-            uxAddISBNLabel.Location = new Point(265, 64);
+            uxAddISBNLabel.Location = new Point(232, 48);
             uxAddISBNLabel.Name = "uxAddISBNLabel";
-            uxAddISBNLabel.Size = new Size(44, 20);
+            uxAddISBNLabel.Size = new Size(35, 15);
             uxAddISBNLabel.TabIndex = 1;
             uxAddISBNLabel.Text = "ISBN:";
             // 
             // uxAddTitleLabel
             // 
             uxAddTitleLabel.AutoSize = true;
-            uxAddTitleLabel.Location = new Point(266, 99);
+            uxAddTitleLabel.Location = new Point(233, 74);
             uxAddTitleLabel.Name = "uxAddTitleLabel";
-            uxAddTitleLabel.Size = new Size(41, 20);
+            uxAddTitleLabel.Size = new Size(32, 15);
             uxAddTitleLabel.TabIndex = 2;
             uxAddTitleLabel.Text = "Title:";
             // 
             // uxAddAuthorLabel
             // 
             uxAddAuthorLabel.AutoSize = true;
-            uxAddAuthorLabel.Location = new Point(250, 135);
+            uxAddAuthorLabel.Location = new Point(219, 101);
             uxAddAuthorLabel.Name = "uxAddAuthorLabel";
-            uxAddAuthorLabel.Size = new Size(57, 20);
+            uxAddAuthorLabel.Size = new Size(47, 15);
             uxAddAuthorLabel.TabIndex = 3;
             uxAddAuthorLabel.Text = "Author:";
             // 
             // uxAddGenreLabel
             // 
             uxAddGenreLabel.AutoSize = true;
-            uxAddGenreLabel.Location = new Point(256, 172);
+            uxAddGenreLabel.Location = new Point(224, 129);
             uxAddGenreLabel.Name = "uxAddGenreLabel";
-            uxAddGenreLabel.Size = new Size(51, 20);
+            uxAddGenreLabel.Size = new Size(41, 15);
             uxAddGenreLabel.TabIndex = 4;
             uxAddGenreLabel.Text = "Genre:";
             // 
             // uxAddEditionLabel
             // 
             uxAddEditionLabel.AutoSize = true;
-            uxAddEditionLabel.Location = new Point(250, 212);
+            uxAddEditionLabel.Location = new Point(219, 159);
             uxAddEditionLabel.Name = "uxAddEditionLabel";
-            uxAddEditionLabel.Size = new Size(59, 20);
+            uxAddEditionLabel.Size = new Size(47, 15);
             uxAddEditionLabel.TabIndex = 5;
             uxAddEditionLabel.Text = "Edition:";
             // 
             // uxAddPriceLabel
             // 
             uxAddPriceLabel.AutoSize = true;
-            uxAddPriceLabel.Location = new Point(263, 250);
+            uxAddPriceLabel.Location = new Point(230, 188);
             uxAddPriceLabel.Name = "uxAddPriceLabel";
-            uxAddPriceLabel.Size = new Size(44, 20);
+            uxAddPriceLabel.Size = new Size(36, 15);
             uxAddPriceLabel.TabIndex = 6;
             uxAddPriceLabel.Text = "Price:";
             // 
             // uxAddPublisherLabel
             // 
             uxAddPublisherLabel.AutoSize = true;
-            uxAddPublisherLabel.Location = new Point(237, 321);
+            uxAddPublisherLabel.Location = new Point(207, 241);
             uxAddPublisherLabel.Name = "uxAddPublisherLabel";
-            uxAddPublisherLabel.Size = new Size(72, 20);
+            uxAddPublisherLabel.Size = new Size(59, 15);
             uxAddPublisherLabel.TabIndex = 7;
             uxAddPublisherLabel.Text = "Publisher:";
             // 
             // uxAddPublicationDate
             // 
             uxAddPublicationDate.AutoSize = true;
-            uxAddPublicationDate.Location = new Point(187, 288);
+            uxAddPublicationDate.Location = new Point(164, 216);
             uxAddPublicationDate.Name = "uxAddPublicationDate";
-            uxAddPublicationDate.Size = new Size(122, 20);
+            uxAddPublicationDate.Size = new Size(97, 15);
             uxAddPublicationDate.TabIndex = 8;
             uxAddPublicationDate.Text = "Publication Date:";
             // 
@@ -130,59 +131,67 @@
             // 
             uxAddGenreComboBox.DropDownWidth = 200;
             uxAddGenreComboBox.FormattingEnabled = true;
-            uxAddGenreComboBox.Location = new Point(313, 169);
+            uxAddGenreComboBox.Location = new Point(274, 127);
+            uxAddGenreComboBox.Margin = new Padding(3, 2, 3, 2);
             uxAddGenreComboBox.Name = "uxAddGenreComboBox";
-            uxAddGenreComboBox.Size = new Size(151, 28);
+            uxAddGenreComboBox.Size = new Size(133, 23);
             uxAddGenreComboBox.TabIndex = 9;
             // 
             // uxAddTitleTextBox
             // 
-            uxAddTitleTextBox.Location = new Point(313, 96);
+            uxAddTitleTextBox.Location = new Point(274, 72);
+            uxAddTitleTextBox.Margin = new Padding(3, 2, 3, 2);
             uxAddTitleTextBox.Name = "uxAddTitleTextBox";
-            uxAddTitleTextBox.Size = new Size(125, 27);
+            uxAddTitleTextBox.Size = new Size(110, 23);
             uxAddTitleTextBox.TabIndex = 10;
             // 
             // uxAddAuthorTextBox
             // 
-            uxAddAuthorTextBox.Location = new Point(313, 132);
+            uxAddAuthorTextBox.Location = new Point(274, 99);
+            uxAddAuthorTextBox.Margin = new Padding(3, 2, 3, 2);
             uxAddAuthorTextBox.Name = "uxAddAuthorTextBox";
-            uxAddAuthorTextBox.Size = new Size(125, 27);
+            uxAddAuthorTextBox.Size = new Size(110, 23);
             uxAddAuthorTextBox.TabIndex = 11;
             // 
             // uxAddEditionTextBox
             // 
-            uxAddEditionTextBox.Location = new Point(312, 209);
+            uxAddEditionTextBox.Location = new Point(273, 157);
+            uxAddEditionTextBox.Margin = new Padding(3, 2, 3, 2);
             uxAddEditionTextBox.Name = "uxAddEditionTextBox";
-            uxAddEditionTextBox.Size = new Size(125, 27);
+            uxAddEditionTextBox.Size = new Size(110, 23);
             uxAddEditionTextBox.TabIndex = 12;
             // 
             // uxAddPriceTextBox
             // 
-            uxAddPriceTextBox.Location = new Point(312, 247);
+            uxAddPriceTextBox.Location = new Point(273, 185);
+            uxAddPriceTextBox.Margin = new Padding(3, 2, 3, 2);
             uxAddPriceTextBox.Name = "uxAddPriceTextBox";
-            uxAddPriceTextBox.Size = new Size(125, 27);
+            uxAddPriceTextBox.Size = new Size(110, 23);
             uxAddPriceTextBox.TabIndex = 13;
             // 
             // uxAddPublicationDateDatePicker
             // 
             uxAddPublicationDateDatePicker.Format = DateTimePickerFormat.Custom;
-            uxAddPublicationDateDatePicker.Location = new Point(312, 284);
+            uxAddPublicationDateDatePicker.Location = new Point(273, 213);
+            uxAddPublicationDateDatePicker.Margin = new Padding(3, 2, 3, 2);
             uxAddPublicationDateDatePicker.Name = "uxAddPublicationDateDatePicker";
-            uxAddPublicationDateDatePicker.Size = new Size(152, 27);
+            uxAddPublicationDateDatePicker.Size = new Size(134, 23);
             uxAddPublicationDateDatePicker.TabIndex = 14;
             // 
             // uxAddPublisherTextbox
             // 
-            uxAddPublisherTextbox.Location = new Point(312, 318);
+            uxAddPublisherTextbox.Location = new Point(273, 238);
+            uxAddPublisherTextbox.Margin = new Padding(3, 2, 3, 2);
             uxAddPublisherTextbox.Name = "uxAddPublisherTextbox";
-            uxAddPublisherTextbox.Size = new Size(125, 27);
+            uxAddPublisherTextbox.Size = new Size(110, 23);
             uxAddPublisherTextbox.TabIndex = 15;
             // 
             // uxAddBookButton
             // 
-            uxAddBookButton.Location = new Point(324, 379);
+            uxAddBookButton.Location = new Point(284, 284);
+            uxAddBookButton.Margin = new Padding(3, 2, 3, 2);
             uxAddBookButton.Name = "uxAddBookButton";
-            uxAddBookButton.Size = new Size(94, 29);
+            uxAddBookButton.Size = new Size(82, 22);
             uxAddBookButton.TabIndex = 16;
             uxAddBookButton.Text = "Add";
             uxAddBookButton.UseVisualStyleBackColor = true;
@@ -190,9 +199,9 @@
             // 
             // AddBookForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(700, 338);
             Controls.Add(uxAddBookButton);
             Controls.Add(uxAddPublisherTextbox);
             Controls.Add(uxAddPublicationDateDatePicker);
@@ -210,6 +219,7 @@
             Controls.Add(uxAddTitleLabel);
             Controls.Add(uxAddISBNLabel);
             Controls.Add(uxAddISBNTextBox);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "AddBookForm";
             Text = "AddBookForm";
             ResumeLayout(false);

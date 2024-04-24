@@ -93,10 +93,18 @@ namespace OnlineBookstore
                 cmd.Parameters.AddWithValue("@Price", price);
                 cmd.Parameters.AddWithValue("@PublicationDate", publicationDate);
                 cmd.Parameters.AddWithValue("@Publisher", publisher);
+                cmd.Parameters.AddWithValue("@IsRemoved", 0);
 
                 conn.Open();
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Book added successfully!");
+                int rowsAffected = cmd.ExecuteNonQuery();
+                if (rowsAffected > 0)
+                {
+                    MessageBox.Show("Book added successfully!");
+                }
+                else
+                {
+                    MessageBox.Show("Failed to add the book.");
+                }
             }
         }
     }

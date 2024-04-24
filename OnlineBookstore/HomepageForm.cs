@@ -21,10 +21,12 @@ namespace OnlineBookstore
     {
         private int _maxbook = 0;
         private decimal price;
-        public HomepageForm()
+        private int _userID;
+        public HomepageForm(int userID)
         {
             InitializeComponent();
             this.Load += new System.EventHandler(this.HomepageForm_Load);
+            _userID = userID;
         }
 
 
@@ -76,13 +78,13 @@ namespace OnlineBookstore
                         ExecuteQueryFiltered("Title", searchterm);
                         break;
                     case "Author":
-                        ExecuteQueryFiltered("Authors.AuthorName", searchterm);
+                        ExecuteQueryFiltered("AuthorName", searchterm);
                         break;
                     case "ISBN":
                         ExecuteQueryFiltered("ISBN", searchterm);
                         break;
                     case "Genre":
-                        ExecuteQueryFiltered("Genres.GenreName", searchterm);
+                        ExecuteQueryFiltered("GenreName", searchterm);
                         break;
                     case "Price":
                         ExecuteQueryFiltered("Price", searchterm);
@@ -101,7 +103,28 @@ namespace OnlineBookstore
         private void ExecuteQueryFiltered(string fieldName, string filter)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = $"SELECT ISBN, Title, Price FROM Books WHERE {fieldName} LIKE @Filter AND IsRemoved = 0";
+            string query;
+
+            // Determine if the search is for authors or genres
+            if (fieldName == "AuthorName" || fieldName == "GenreName")
+            {
+                string joinTable = fieldName == "AuthorName" ? "Authors" : "Genres";
+                string foreignKey = fieldName == "AuthorName" ? "AuthorID" : "GenreID";
+                string joinField = fieldName == "AuthorName" ? "Authors.AuthorName" : "Genres.GenreName";
+
+                query = $@"
+                    SELECT Books.ISBN, Books.Title, Books.Price
+                    FROM Books
+                    INNER JOIN {joinTable} ON Books.{foreignKey} = {joinTable}.{foreignKey}
+                    WHERE {joinField} LIKE @Filter AND Books.IsRemoved = 0";
+            }
+            else
+            {
+                query = $@"
+                    SELECT ISBN, Title, Price 
+                    FROM Books 
+                    WHERE {fieldName} LIKE @Filter AND IsRemoved = 0";
+            }
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -125,118 +148,9 @@ namespace OnlineBookstore
                 selectedBooks.Add(item.ToString());
             }
 
-            BuyForm buyForm = new BuyForm(selectedBooks);
+            BuyForm buyForm = new BuyForm(selectedBooks, _userID);
             buyForm.Show();
         }
-
-        //important all sql queres here
-        #region Queries to complete
-        private void ExecuteQueryTitle(string filter)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = "SELECT Title, ISBN, WHERE IsRemoved = 0 && Title LIKE '%" + filter + "%';";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable books = new DataTable();
-                adapter.Fill(books);
-
-                uxBookList.DisplayMember = "Title";
-                uxBookList.ValueMember = "ISBN";
-                uxBookList.DataSource = books;
-            }
-        }
-        private void ExecuteQueryAuthor(string filter)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = "SELECT Title, Author, ISBN WHERE IsRemoved = 1 && Author LIKE '%" + filter + "%';";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable books = new DataTable();
-                adapter.Fill(books);
-
-                uxBookList.DisplayMember = "Author" + " " + "Title";//error here porbaly
-                uxBookList.DisplayMember = "Title";//error ehre porbably
-                uxBookList.ValueMember = "ISBN";
-                uxBookList.DataSource = books;
-            }
-        }
-        private void ExecuteQueryISBN(string filter)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = "SELECT ISBN WHERE IsRemoved = 1 && ISBN LIKE '%" + filter + "%';";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable books = new DataTable();
-                adapter.Fill(books);
-
-                uxBookList.DisplayMember = "ISBN";
-                uxBookList.ValueMember = "ISBN";
-                uxBookList.DataSource = books;
-            }
-        }
-        private void ExecuteQueryGenre(string filter)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = "SELECT Genre, ISBN WHERE IsRemoved = 1 && Genre LIKE '%" + filter + "%';";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable books = new DataTable();
-                adapter.Fill(books);
-
-                uxBookList.DisplayMember = "Genre";
-                uxBookList.ValueMember = "ISBN";
-                uxBookList.DataSource = books;
-            }
-        }
-        private void ExecuteQueryPrice(string filter)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = "SELECT Price, ISBN WHERE IsRemoved = 1 && Price LIKE '%" + filter + "%';";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable books = new DataTable();
-                adapter.Fill(books);
-
-                uxBookList.DisplayMember = "Price";
-                uxBookList.ValueMember = "ISBN";
-                uxBookList.DataSource = books;
-            }
-        }
-        private void ExecuteQueryPublisher(string filter)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = "SELECT Publisher, ISBN WHERE IsRemoved = 1 && Publisher LIKE '%" + filter + "%';";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable books = new DataTable();
-                adapter.Fill(books);
-
-                uxBookList.DisplayMember = "Publisher";
-                uxBookList.ValueMember = "ISBN";
-                uxBookList.DataSource = books;
-            }
-        }
-        #endregion 
-        //important all sql queres here
-
 
         private void uxAdd_Click(object sender, EventArgs e)
         {
@@ -274,7 +188,6 @@ namespace OnlineBookstore
                 uxPrice.Text = "Total: $" + price.ToString();
                 uxBuyList.Items.RemoveAt(uxBuyList.SelectedIndex);
 
-                // Disable the Buy button if the list is empty
                 uxBuy.Enabled = uxBuyList.Items.Count > 0;
             }
 
