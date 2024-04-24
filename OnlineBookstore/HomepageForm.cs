@@ -29,8 +29,6 @@ namespace OnlineBookstore
             _userID = userID;
         }
 
-
-
         private void HomepageForm_Load(object sender, EventArgs e)
         {
 
@@ -59,8 +57,7 @@ namespace OnlineBookstore
                 uxBookList.DataSource = books;
             }
         }
-
-
+        /*
         private void uxSearchButton_Click(object sender, EventArgs e)
         {
             string searchterm = uxSearchBox.Text.Trim();
@@ -68,11 +65,19 @@ namespace OnlineBookstore
 
             if (string.IsNullOrWhiteSpace(searchterm))
             {
-                LoadBooks();
+                if (uxFilter.SelectedItem?.ToString() == "Genre")
+                {
+                    string selectedGenre = uxGenreComboBox.Text;
+                    ExecuteQueryFiltered("GenreName", selectedGenre);
+                }
+                else
+                {
+                    LoadBooks();
+                }
             }
             else
             {
-                switch (uxFilter.SelectedItem.ToString())
+                switch (uxFilter.SelectedItem?.ToString())
                 {
                     case "Title":
                         ExecuteQueryFiltered("Title", searchterm);
@@ -82,9 +87,6 @@ namespace OnlineBookstore
                         break;
                     case "ISBN":
                         ExecuteQueryFiltered("ISBN", searchterm);
-                        break;
-                    case "Genre":
-                        ExecuteQueryFiltered("GenreName", searchterm);
                         break;
                     case "Price":
                         ExecuteQueryFiltered("Price", searchterm);
@@ -98,32 +100,131 @@ namespace OnlineBookstore
                 }
             }
             uxDisplaying.Text = uxBookList.Items.Count + " of " + _maxbook;
+        }*/
+        private void uxSearchButton_Click(object sender, EventArgs e)
+        {
+            string searchterm = uxSearchBox.Text.Trim();
+            uxBookList.DataSource = null;
+
+            if (string.IsNullOrWhiteSpace(searchterm))
+            {
+                if (uxFilter.SelectedItem?.ToString() == "Genre")
+                {
+                    string selectedGenre = uxGenreComboBox.Text; // Get the selected genre from the ComboBox
+                    ExecuteQueryFiltered("GenreName", selectedGenre);
+                }
+                else
+                {
+                    LoadBooks();
+                }
+            }
+            else
+            {
+                if (uxFilter.SelectedItem?.ToString() == "Genre")
+                {
+                    string selectedGenre = uxGenreComboBox.Text; // Get the selected genre from the ComboBox
+                    ExecuteQueryFiltered("GenreName", selectedGenre);
+                }
+                else
+                {
+                    switch (uxFilter.SelectedItem?.ToString())
+                    {
+                        case "Title":
+                            ExecuteQueryFiltered("Title", searchterm);
+                            break;
+                        case "Author":
+                            ExecuteQueryFiltered("AuthorName", searchterm);
+                            break;
+                        case "ISBN":
+                            ExecuteQueryFiltered("ISBN", searchterm);
+                            break;
+                        case "Price":
+                            ExecuteQueryFiltered("Price", searchterm);
+                            break;
+                        case "Publisher":
+                            ExecuteQueryFiltered("Publisher", searchterm);
+                            break;
+                        default:
+                            MessageBox.Show("Invalid filter selection.");
+                            break;
+                    }
+                }
+            }
+            uxSearchBox.Text = "";
+
+            uxDisplaying.Text = uxBookList.Items.Count + " of " + _maxbook;
         }
+
+        private void FormatBookDisplay(object sender, ListControlConvertEventArgs e)
+        {
+            DataRowView row = e.ListItem as DataRowView;
+            if (row != null)
+            {
+                string title = row["Title"].ToString();
+                string author = row["AuthorName"].ToString();
+                string isbn = row["ISBN"].ToString();
+                string price = String.Format("{0:C}", row["Price"]);
+                string publisher = row["Publisher"].ToString();
+                string genre = row.Row.Table.Columns.Contains("GenreName") ? row["GenreName"].ToString() : "";
+
+                switch (uxFilter.SelectedItem.ToString())
+                {
+                    case "Title":
+                        e.Value = $"{title} by {author}";
+                        break;
+                    case "Author":
+                        e.Value = $"Author: {author} - {title}";
+                        break;
+                    case "ISBN":
+                        e.Value = $"{isbn} - {title}";
+                        break;
+                    case "Genre":
+                        e.Value = $"Genre: {genre} - {title} by {author}";
+                        break;
+                    case "Price":
+                        e.Value = $"{price} - {title} by {author}";
+                        break;
+                    case "Publisher":
+                        e.Value = $"Publisher: {publisher} - {title} by {author}";
+                        break;
+                }
+            }
+        }
+
 
         private void ExecuteQueryFiltered(string fieldName, string filter)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query;
+            DataTable books = new DataTable();
+            string query = "";
 
-            // Determine if the search is for authors or genres
-            if (fieldName == "AuthorName" || fieldName == "GenreName")
+            switch (fieldName)
             {
-                string joinTable = fieldName == "AuthorName" ? "Authors" : "Genres";
-                string foreignKey = fieldName == "AuthorName" ? "AuthorID" : "GenreID";
-                string joinField = fieldName == "AuthorName" ? "Authors.AuthorName" : "Genres.GenreName";
-
-                query = $@"
-                    SELECT Books.ISBN, Books.Title, Books.Price
-                    FROM Books
-                    INNER JOIN {joinTable} ON Books.{foreignKey} = {joinTable}.{foreignKey}
-                    WHERE {joinField} LIKE @Filter AND Books.IsRemoved = 0";
-            }
-            else
-            {
-                query = $@"
-                    SELECT ISBN, Title, Price 
-                    FROM Books 
-                    WHERE {fieldName} LIKE @Filter AND IsRemoved = 0";
+                case "Title":
+                case "ISBN":
+                case "Price":
+                case "Publisher":
+                    query = $@"SELECT ISBN, Title, Authors.AuthorName, Price, Publisher
+                               FROM Books
+                               INNER JOIN Authors ON Books.AuthorID = Authors.AuthorID
+                               WHERE {fieldName} LIKE @Filter AND IsRemoved = 0
+                               ORDER BY {(fieldName == "Price" ? "Title" : fieldName)}";
+                    break;
+                case "AuthorName":
+                    query = $@"SELECT ISBN, Title, Authors.AuthorName, Price, Publisher
+                               FROM Books
+                               INNER JOIN Authors ON Books.AuthorID = Authors.AuthorID
+                               WHERE Authors.AuthorName LIKE @Filter AND Books.IsRemoved = 0
+                               ORDER BY Title";
+                    break;
+                case "GenreName":
+                    query = $@"SELECT ISBN, Title, Authors.AuthorName, Genres.GenreName, Price, Publisher
+                               FROM Books
+                               INNER JOIN Authors ON Books.AuthorID = Authors.AuthorID
+                               INNER JOIN Genres ON Books.GenreID = Genres.GenreID
+                               WHERE Genres.GenreName LIKE @Filter AND Books.IsRemoved = 0
+                               ORDER BY Title";
+                    break;
             }
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -131,14 +232,50 @@ namespace OnlineBookstore
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@Filter", $"%{filter}%");
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable books = new DataTable();
                 adapter.Fill(books);
 
                 uxBookList.DisplayMember = "Title";
                 uxBookList.ValueMember = "ISBN";
                 uxBookList.DataSource = books;
+                uxBookList.Format += new ListControlConvertEventHandler(FormatBookDisplay);
             }
         }
+        /*
+        private void FormatBookDisplay(object sender, ListControlConvertEventArgs e)
+        {
+            DataRowView row = e.ListItem as DataRowView;
+            if (row != null)
+            {
+                string title = row["Title"].ToString();
+                string author = row["AuthorName"].ToString();
+                string isbn = row["ISBN"].ToString();
+                string price = String.Format("{0:C}", row["Price"]);
+                string publisher = row["Publisher"].ToString();
+                string genre = row.Row.Table.Columns.Contains("GenreName") ? row["GenreName"].ToString() : "";
+
+                switch (uxFilter.SelectedItem.ToString())
+                {
+                    case "Title":
+                        e.Value = $"{title} by {author}";
+                        break;
+                    case "Author":
+                        e.Value = $"Author: {author} - {title}";
+                        break;
+                    case "ISBN":
+                        e.Value = $"{isbn} - {title}";
+                        break;
+                    case "Genre":
+                        e.Value = $"{title} by {author} - Genre: {genre}";
+                        break;
+                    case "Price":
+                        e.Value = $"{price} - {title} by {author}";
+                        break;
+                    case "Publisher":
+                        e.Value = $"Publisher: {publisher} - {title} by {author}";
+                        break;
+                }
+            }
+        }*/
 
         private void uxBuy_Click(object sender, EventArgs e)
         {
@@ -204,6 +341,40 @@ namespace OnlineBookstore
                 uxRemove.Enabled = true;
                 uxBuy.Enabled = true;
             }
+        }
+
+        private void uxFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Check if filtering by genre. If so, display genre ComboBox
+            uxGenreComboBox.Visible = uxFilter.SelectedItem?.ToString() == "Genre";
+            if (uxGenreComboBox.Visible)
+            {
+                LoadGenres();
+            }
+        }
+
+        private void LoadGenres()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
+            string query = "SELECT GenreID, GenreName FROM Genres ORDER BY GenreName";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable genres = new DataTable();
+                adapter.Fill(genres);
+
+                uxGenreComboBox.DisplayMember = "GenreName";
+                uxGenreComboBox.ValueMember = "GenreID";
+                uxGenreComboBox.DataSource = genres;
+            }
+        }
+
+        private void uxBackButton_Click(object sender, EventArgs e)
+        {
+            SignUpForm signUpForm = new SignUpForm();
+            signUpForm.Show();
+            this.Hide();
         }
     }
 }

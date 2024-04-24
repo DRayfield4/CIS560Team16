@@ -39,13 +39,14 @@
             uxAddBookButton = new Button();
             uxUpdateBookButton = new Button();
             uxRemoveBookButton = new Button();
+            uxBackButton = new Button();
             SuspendLayout();
             // 
             // uxAggregatingQueriesComboBox
             // 
             uxAggregatingQueriesComboBox.DropDownWidth = 280;
             uxAggregatingQueriesComboBox.FormattingEnabled = true;
-            uxAggregatingQueriesComboBox.Items.AddRange(new object[] { "1) Total sales revenue for each genre", "2) Top 10 bestselling authors", "3) Monthly revenue over certain amount of years", "4) Distribution of frequent customers" });
+            uxAggregatingQueriesComboBox.Items.AddRange(new object[] { "1) Total sales revenue for each genre", "2) Top 10 bestselling authors", "3) Monthly revenue over certain amount of years", "4) Distribution of frequent customers", "----------------------------------------------------------", "- Display all users", "- Display all books", "- Display highest selling years" });
             uxAggregatingQueriesComboBox.Location = new Point(334, 115);
             uxAggregatingQueriesComboBox.Name = "uxAggregatingQueriesComboBox";
             uxAggregatingQueriesComboBox.Size = new Size(152, 23);
@@ -104,11 +105,12 @@
             // 
             uxStartDatePicker.Format = DateTimePickerFormat.Custom;
             uxStartDatePicker.Location = new Point(315, 174);
-            uxStartDatePicker.MaxDate = new DateTime(2024, 4, 23, 0, 0, 0, 0);
+            uxStartDatePicker.MaxDate = new DateTime(1923, 1, 1, 0, 0, 0, 0);
+            uxStartDatePicker.MinDate = new DateTime(1898, 9, 1, 0, 0, 0, 0);
             uxStartDatePicker.Name = "uxStartDatePicker";
             uxStartDatePicker.Size = new Size(200, 23);
             uxStartDatePicker.TabIndex = 8;
-            uxStartDatePicker.Value = new DateTime(2024, 4, 23, 0, 0, 0, 0);
+            uxStartDatePicker.Value = new DateTime(1923, 1, 1, 0, 0, 0, 0);
             uxStartDatePicker.Visible = false;
             // 
             // uxEndDatePicker
@@ -116,6 +118,7 @@
             uxEndDatePicker.Format = DateTimePickerFormat.Custom;
             uxEndDatePicker.Location = new Point(315, 214);
             uxEndDatePicker.MaxDate = new DateTime(2024, 4, 23, 0, 0, 0, 0);
+            uxEndDatePicker.MinDate = new DateTime(1898, 1, 9, 0, 0, 0, 0);
             uxEndDatePicker.Name = "uxEndDatePicker";
             uxEndDatePicker.Size = new Size(200, 23);
             uxEndDatePicker.TabIndex = 9;
@@ -152,11 +155,22 @@
             uxRemoveBookButton.UseVisualStyleBackColor = true;
             uxRemoveBookButton.Click += uxRemoveBookButton_Click;
             // 
+            // uxBackButton
+            // 
+            uxBackButton.Location = new Point(669, 415);
+            uxBackButton.Name = "uxBackButton";
+            uxBackButton.Size = new Size(119, 23);
+            uxBackButton.TabIndex = 13;
+            uxBackButton.Text = "Back to Sign Up";
+            uxBackButton.UseVisualStyleBackColor = true;
+            uxBackButton.Click += uxBackButton_Click;
+            // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(uxBackButton);
             Controls.Add(uxRemoveBookButton);
             Controls.Add(uxUpdateBookButton);
             Controls.Add(uxAddBookButton);
@@ -187,5 +201,6 @@
         private Button uxAddBookButton;
         private Button uxUpdateBookButton;
         private Button uxRemoveBookButton;
+        private Button uxBackButton;
     }
 }

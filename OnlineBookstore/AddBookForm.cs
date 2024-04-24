@@ -81,7 +81,7 @@ namespace OnlineBookstore
             int authorId = EnsureAuthorExists(author);
 
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = "INSERT INTO Books (ISBN, Title, AuthorID, GenreID, Edition, Price, PublicationDate, Publisher) VALUES (@ISBN, @Title, @AuthorID, @GenreID, @Edition, @Price, @PublicationDate, @Publisher)";
+            string query = "INSERT INTO Books (ISBN, Title, AuthorID, GenreID, Edition, Price, PublicationDate, Publisher, IsRemoved) VALUES (@ISBN, @Title, @AuthorID, @GenreID, @Edition, @Price, @PublicationDate, @Publisher, @IsRemoved)";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, conn);

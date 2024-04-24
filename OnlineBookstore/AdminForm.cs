@@ -24,32 +24,39 @@ namespace OnlineBookstore
         {
             uxResultListBox.Items.Clear();
 
-            switch (uxAggregatingQueriesComboBox.SelectedIndex)
+            // Case for selecting the separator
+            if (uxAggregatingQueriesComboBox.SelectedItem.ToString().Contains("----------------------------------------------------------"))
             {
-                case 0: // Total sales revenue for each genre
-                    break;
-                case 1: // Top 10 bestselling authors
-                    break;
-                case 2: // Monthly revenue over certain amount of years
-                    uxStartDatePicker.Visible = true;
-                    uxEndDatePicker.Visible = true;
-                    uxStartDateLabel.Visible = true;
-                    uxEndDateLabel.Visible = true;
-                    break;
-                case 3: // Distribution of frequent customers
-                    uxStartDatePicker.Visible = true;
-                    uxEndDatePicker.Visible = true;
-                    uxStartDateLabel.Visible = true;
-                    uxEndDateLabel.Visible = true;
-                    break;
-                default:
-                    break;
+                uxStartDatePicker.Visible = false;
+                uxEndDatePicker.Visible = false;
+                uxStartDateLabel.Visible = false;
+                uxEndDateLabel.Visible = false;
+                MessageBox.Show("Please select a valid query option.", "Invalid Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                // Enable date pickers only for queries that require dates
+                bool showDatePickers = uxAggregatingQueriesComboBox.SelectedIndex == 2 || uxAggregatingQueriesComboBox.SelectedIndex == 3;
+                uxStartDatePicker.Visible = showDatePickers;
+                uxEndDatePicker.Visible = showDatePickers;
+                uxStartDateLabel.Visible = showDatePickers;
+                uxEndDateLabel.Visible = showDatePickers;
             }
         }
 
         private void uxResultButton_Click(object sender, EventArgs e)
         {
-            switch (uxAggregatingQueriesComboBox.SelectedItem.ToString())
+            uxResultListBox.Items.Clear();
+
+            string selectedQuery = uxAggregatingQueriesComboBox.SelectedItem.ToString();
+
+            if (selectedQuery.Contains("---") || selectedQuery.Contains("Select"))
+            {
+                MessageBox.Show("Invalid option. Please select a valid query.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            switch (selectedQuery)
             {
                 case "1) Total sales revenue for each genre":
                     ExecuteQuery1();
@@ -58,17 +65,22 @@ namespace OnlineBookstore
                     ExecuteQuery2();
                     break;
                 case "3) Monthly revenue over certain amount of years":
-                    DateTime startDate3 = uxStartDatePicker.Value;
-                    DateTime endDate3 = uxEndDatePicker.Value;
-                    ExecuteQuery3(startDate3, endDate3);
+                    ExecuteQuery3(uxStartDatePicker.Value, uxEndDatePicker.Value);
                     break;
                 case "4) Distribution of frequent customers":
-                    DateTime startDate4 = uxStartDatePicker.Value;
-                    DateTime endDate4 = uxEndDatePicker.Value;
-                    ExecuteQuery4(startDate4, endDate4);
+                    ExecuteQuery4(uxStartDatePicker.Value, uxEndDatePicker.Value);
+                    break;
+                case "- Display all users":
+                    ExecuteQueryAllUsers();
+                    break;
+                case "- Display all books":
+                    ExecuteQueryAllBooks();
+                    break;
+                case "- Display highest selling years":
+                    ExecuteQueryHighestSellingYears();
                     break;
                 default:
-                    MessageBox.Show("Please don't touch me unless you select a valid query!");
+                    MessageBox.Show("Please select a valid query to run.", "Invalid Query", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
             }
         }
@@ -80,12 +92,13 @@ namespace OnlineBookstore
                 @"SELECT 
                     g.GenreName, 
                     SUM(od.Price) AS TotalRevenue,
-                    AVG(od.Price) AS AveragePrice, 
+                    CAST(AVG(od.Price) AS DECIMAL(10, 2)) AS AveragePrice,
                     COUNT(*) AS TotalBooksSold 
                 FROM Genres g
                 INNER JOIN Books b ON g.GenreID = b.GenreID
                 INNER JOIN OrderDetails od ON b.ISBN = od.ISBN
-                GROUP BY g.GenreName";
+                GROUP BY g.GenreName
+                ORDER BY TotalRevenue DESC";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -199,29 +212,34 @@ namespace OnlineBookstore
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
             string query =
-                @"WITH CustomerFrequency AS (
+                    @"WITH CustomerFrequency AS (
+                        SELECT 
+                            c.CustomerID,
+                            COUNT(o.OrderID) AS NumberOfOrders
+                        FROM Customers c
+                        INNER JOIN Orders o ON c.CustomerID = o.CustomerID
+                        WHERE o.OrderDate BETWEEN @StartDate AND @EndDate
+                        GROUP BY c.CustomerID
+                      ),
+                      TotalCustomers AS (
+                        SELECT COUNT(*) AS Total FROM Customers  -- Total customers in the database
+                      )
                     SELECT 
-                        c.CustomerID,
-                        COUNT(o.OrderID) AS NumberOfOrders
-                    FROM Customers c
-                    INNER JOIN Orders o ON c.CustomerID = o.CustomerID
-                    WHERE o.OrderDate BETWEEN @StartDate AND @EndDate
-                    GROUP BY c.CustomerID
-                )
-                SELECT 
-                    CASE 
-                        WHEN NumberOfOrders = 1 THEN 'Single Purchase'
-                        WHEN NumberOfOrders > 1 AND NumberOfOrders <= 5 THEN 'Multiple Purchases'
-                        ELSE 'Frequent Purchases' 
-                    END AS CustomerFrequencyCategory,
-                    COUNT(*) AS NumberOfCustomers,
-                    COUNT(*) * 100.0 / (SELECT COUNT(*) FROM CustomerFrequency) AS PercentageOfTotalCustomers
-                FROM CustomerFrequency
-                GROUP BY CASE 
-                    WHEN NumberOfOrders = 1 THEN 'Single Purchase'
-                    WHEN NumberOfOrders > 1 AND NumberOfOrders <= 5 THEN 'Multiple Purchases'
-                    ELSE 'Frequent Purchases' 
-                END";
+                        CASE 
+                            WHEN NumberOfOrders = 1 THEN 'Single Purchase'
+                            WHEN NumberOfOrders > 1 AND NumberOfOrders <= 5 THEN 'Multiple Purchases'
+                            ELSE 'Frequent Purchases' 
+                        END AS CustomerFrequencyCategory,
+                        COUNT(*) AS NumberOfCustomers,
+                        COUNT(*) * 100.0 / TotalCustomers.Total AS PercentageOfTotalCustomers
+                    FROM CustomerFrequency
+                    CROSS JOIN TotalCustomers  -- Get total customers count for percentage calculation
+                    GROUP BY 
+                        CASE 
+                            WHEN NumberOfOrders = 1 THEN 'Single Purchase'
+                            WHEN NumberOfOrders > 1 AND NumberOfOrders <= 5 THEN 'Multiple Purchases'
+                            ELSE 'Frequent Purchases' 
+                        END, TotalCustomers.Total";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -243,6 +261,88 @@ namespace OnlineBookstore
             }
         }
 
+        private void ExecuteQueryAllUsers()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
+            string query = "SELECT UserID, Email, IsAdmin FROM Users ORDER BY UserID";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int userID = (int)reader["UserID"];
+                        string email = reader["Email"].ToString();
+                        bool isAdmin = (bool)reader["IsAdmin"];
+
+                        uxResultListBox.Items.Add($"User ID: {userID}, Email: {email}, Admin: {isAdmin}");
+                    }
+                }
+            }
+        }
+
+        private void ExecuteQueryAllBooks()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
+            string query =
+                @"SELECT b.Title, a.AuthorName 
+                  FROM Books b
+                  JOIN Authors a ON b.AuthorID = a.AuthorID
+                  ORDER BY b.Title";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    int count = 1;
+                    while (reader.Read())
+                    {
+                        string title = reader["Title"].ToString();
+                        string authorName = reader["AuthorName"].ToString();
+
+                        uxResultListBox.Items.Add($"{count}) {title} by {authorName}");
+                        count++;
+                    }
+                }
+            }
+        }
+
+        private void ExecuteQueryHighestSellingYears()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
+            string query =
+                @"SELECT 
+                    YEAR(o.OrderDate) AS SalesYear, 
+                    SUM(od.Price) AS TotalSales,
+                    COUNT(*) AS TotalBooksSold
+                  FROM Orders o
+                  INNER JOIN OrderDetails od ON o.OrderID = od.OrderID
+                  GROUP BY YEAR(o.OrderDate)
+                  ORDER BY TotalSales DESC";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int salesYear = (int)reader["SalesYear"];
+                        decimal totalSales = (decimal)reader["TotalSales"];
+                        int totalBooksSold = (int)reader["TotalBooksSold"];
+
+                        uxResultListBox.Items.Add($"Year: {salesYear}, Total Sales: ${totalSales:N2}, Books Sold: {totalBooksSold}");
+                    }
+                }
+            }
+        }
+
         private void uxAddBookButton_Click(object sender, EventArgs e)
         {
             AddBookForm addBookForm = new AddBookForm();
@@ -259,6 +359,13 @@ namespace OnlineBookstore
         {
             RemoveBookForm removeBookForm = new RemoveBookForm();
             removeBookForm.ShowDialog();
+        }
+
+        private void uxBackButton_Click(object sender, EventArgs e)
+        {
+            SignUpForm signUpForm = new SignUpForm();
+            signUpForm.Show();
+            this.Hide();
         }
     }
 }

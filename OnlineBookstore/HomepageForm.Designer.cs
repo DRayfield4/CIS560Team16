@@ -41,6 +41,8 @@
             uxSearchButton = new Button();
             uxSearchBox = new TextBox();
             uxFilter = new ComboBox();
+            uxGenreComboBox = new ComboBox();
+            uxBackButton = new Button();
             SuspendLayout();
             // 
             // uxBookList
@@ -65,7 +67,7 @@
             // e
             // 
             e.AutoSize = true;
-            e.Location = new Point(519, 28);
+            e.Location = new Point(486, 28);
             e.Name = "e";
             e.Size = new Size(67, 15);
             e.TabIndex = 2;
@@ -92,7 +94,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(483, 238);
+            label4.Location = new Point(499, 235);
             label4.Name = "label4";
             label4.Size = new Size(45, 15);
             label4.TabIndex = 5;
@@ -139,7 +141,7 @@
             // 
             // uxSearchButton
             // 
-            uxSearchButton.Location = new Point(582, 304);
+            uxSearchButton.Location = new Point(571, 302);
             uxSearchButton.Name = "uxSearchButton";
             uxSearchButton.Size = new Size(75, 23);
             uxSearchButton.TabIndex = 10;
@@ -149,7 +151,7 @@
             // 
             // uxSearchBox
             // 
-            uxSearchBox.Location = new Point(562, 230);
+            uxSearchBox.Location = new Point(550, 235);
             uxSearchBox.Name = "uxSearchBox";
             uxSearchBox.Size = new Size(121, 23);
             uxSearchBox.TabIndex = 11;
@@ -158,16 +160,38 @@
             // 
             uxFilter.FormattingEnabled = true;
             uxFilter.Items.AddRange(new object[] { "Title", "Author", "ISBN", "Genre", "Price", "Publisher" });
-            uxFilter.Location = new Point(562, 273);
+            uxFilter.Location = new Point(550, 273);
             uxFilter.Name = "uxFilter";
             uxFilter.Size = new Size(121, 23);
             uxFilter.TabIndex = 12;
+            uxFilter.SelectedIndexChanged += uxFilter_SelectedIndexChanged;
+            // 
+            // uxGenreComboBox
+            // 
+            uxGenreComboBox.FormattingEnabled = true;
+            uxGenreComboBox.Location = new Point(686, 273);
+            uxGenreComboBox.Name = "uxGenreComboBox";
+            uxGenreComboBox.Size = new Size(121, 23);
+            uxGenreComboBox.TabIndex = 13;
+            uxGenreComboBox.Visible = false;
+            // 
+            // uxBackButton
+            // 
+            uxBackButton.Location = new Point(979, 495);
+            uxBackButton.Name = "uxBackButton";
+            uxBackButton.Size = new Size(119, 23);
+            uxBackButton.TabIndex = 14;
+            uxBackButton.Text = "Back to Sign Up";
+            uxBackButton.UseVisualStyleBackColor = true;
+            uxBackButton.Click += uxBackButton_Click;
             // 
             // HomepageForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1110, 530);
+            Controls.Add(uxBackButton);
+            Controls.Add(uxGenreComboBox);
             Controls.Add(uxFilter);
             Controls.Add(uxSearchBox);
             Controls.Add(uxSearchButton);
@@ -204,5 +228,7 @@
         private Button uxSearchButton;
         private TextBox uxSearchBox;
         private ComboBox uxFilter;
+        private ComboBox uxGenreComboBox;
+        private Button uxBackButton;
     }
 }
