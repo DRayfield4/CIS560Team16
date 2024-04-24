@@ -34,7 +34,6 @@ namespace OnlineBookstore
 
             uxBuy.Enabled = false;
             uxRemove.Enabled = false;
-            //disables buttons
 
             LoadBooks();
             _maxbook = uxBookList.Items.Count; //gets max book count
@@ -44,7 +43,7 @@ namespace OnlineBookstore
         private void LoadBooks()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = "SELECT ISBN, Title, Price FROM Books WHERE IsRemoved = 1";
+            string query = "SELECT ISBN, Title, Price FROM Books WHERE IsRemoved = 0";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -62,34 +61,60 @@ namespace OnlineBookstore
 
         private void uxSearchButton_Click(object sender, EventArgs e)
         {
-            //if user serches for "" should they be able to return a list of everythign just in a different order?
-            string searchterm = uxSearchBox.Text.ToString();
-            uxBookList.Items.Clear();
-            switch (uxFilter.SelectedItem.ToString())
+            string searchterm = uxSearchBox.Text.Trim();
+            uxBookList.DataSource = null;
+
+            if (string.IsNullOrWhiteSpace(searchterm))
             {
-                case "Title":
-                    ExecuteQueryTitle(searchterm);
-                    break;
-                case "Author":
-                    ExecuteQueryAuthor(searchterm);
-                    break;
-                case "ISBN":
-                    ExecuteQueryISBN(searchterm);
-                    break;
-                case "Genre":
-                    ExecuteQueryGenre(searchterm);
-                    break;
-                case "Price":
-                    ExecuteQueryPrice(searchterm);
-                    break;
-                case "Publisher":
-                    ExecuteQueryPublisher(searchterm);
-                    break;
-                default:
-                    MessageBox.Show("Something went wrong");
-                    break;
+                LoadBooks();
+            }
+            else
+            {
+                switch (uxFilter.SelectedItem.ToString())
+                {
+                    case "Title":
+                        ExecuteQueryFiltered("Title", searchterm);
+                        break;
+                    case "Author":
+                        ExecuteQueryFiltered("Authors.AuthorName", searchterm);
+                        break;
+                    case "ISBN":
+                        ExecuteQueryFiltered("ISBN", searchterm);
+                        break;
+                    case "Genre":
+                        ExecuteQueryFiltered("Genres.GenreName", searchterm);
+                        break;
+                    case "Price":
+                        ExecuteQueryFiltered("Price", searchterm);
+                        break;
+                    case "Publisher":
+                        ExecuteQueryFiltered("Publisher", searchterm);
+                        break;
+                    default:
+                        MessageBox.Show("Invalid filter selection.");
+                        break;
+                }
             }
             uxDisplaying.Text = uxBookList.Items.Count + " of " + _maxbook;
+        }
+
+        private void ExecuteQueryFiltered(string fieldName, string filter)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
+            string query = $"SELECT ISBN, Title, Price FROM Books WHERE {fieldName} LIKE @Filter AND IsRemoved = 0";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Filter", $"%{filter}%");
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable books = new DataTable();
+                adapter.Fill(books);
+
+                uxBookList.DisplayMember = "Title";
+                uxBookList.ValueMember = "ISBN";
+                uxBookList.DataSource = books;
+            }
         }
 
         private void uxBuy_Click(object sender, EventArgs e)
@@ -109,7 +134,7 @@ namespace OnlineBookstore
         private void ExecuteQueryTitle(string filter)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = "SELECT Title, ISBN, WHERE IsRemoved = 1 && Title LIKE '%" + filter + "%';";
+            string query = "SELECT Title, ISBN, WHERE IsRemoved = 0 && Title LIKE '%" + filter + "%';";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -226,6 +251,8 @@ namespace OnlineBookstore
 
                     uxBuyList.Items.Add(displayText);
                     updatePrice(price);
+
+                    uxBuy.Enabled = uxBuyList.Items.Count > 0;
                 }
             }
         }
@@ -238,16 +265,22 @@ namespace OnlineBookstore
 
         private void uxRemove_Click(object sender, EventArgs e)
         {
-            string item2 = uxBuyList.Items[uxBuyList.SelectedIndex].ToString();
-            int index = item2.IndexOf('$') + 1;
-            string substring = item2.Substring(index);
-            price -= decimal.Parse(substring);
-            uxPrice.Text = "Total: $" + price.ToString();
-            uxBuyList.Items.RemoveAt(uxBuyList.SelectedIndex);
+            if (uxBuyList.SelectedIndex != -1)
+            {
+                string item2 = uxBuyList.Items[uxBuyList.SelectedIndex].ToString();
+                int index = item2.IndexOf('$') + 1;
+                string substring = item2.Substring(index);
+                price -= decimal.Parse(substring);
+                uxPrice.Text = "Total: $" + price.ToString();
+                uxBuyList.Items.RemoveAt(uxBuyList.SelectedIndex);
+
+                // Disable the Buy button if the list is empty
+                uxBuy.Enabled = uxBuyList.Items.Count > 0;
+            }
+
             if (uxBuyList.Items.Count <= 0)
             {
                 uxRemove.Enabled = false;
-                uxBuy.Enabled = false;
             }
         }
 

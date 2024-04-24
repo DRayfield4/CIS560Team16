@@ -34,7 +34,6 @@
             uxPasswordTextbox = new TextBox();
             uxWelcome = new Label();
             uxSignUpButton = new Button();
-            uxGuestButton = new Button();
             uxIsAdminCheckbox = new CheckBox();
             uxAdminAccesButton = new Button();
             SuspendLayout();
@@ -42,7 +41,7 @@
             // uxEmailLabel
             // 
             uxEmailLabel.AutoSize = true;
-            uxEmailLabel.Location = new Point(292, 141);
+            uxEmailLabel.Location = new Point(293, 182);
             uxEmailLabel.Name = "uxEmailLabel";
             uxEmailLabel.Size = new Size(42, 15);
             uxEmailLabel.TabIndex = 2;
@@ -51,7 +50,7 @@
             // uxPasswordLabel
             // 
             uxPasswordLabel.AutoSize = true;
-            uxPasswordLabel.Location = new Point(271, 164);
+            uxPasswordLabel.Location = new Point(272, 205);
             uxPasswordLabel.Name = "uxPasswordLabel";
             uxPasswordLabel.Size = new Size(63, 15);
             uxPasswordLabel.TabIndex = 3;
@@ -59,7 +58,7 @@
             // 
             // uxEmailTextbox
             // 
-            uxEmailTextbox.Location = new Point(344, 139);
+            uxEmailTextbox.Location = new Point(345, 180);
             uxEmailTextbox.Margin = new Padding(3, 2, 3, 2);
             uxEmailTextbox.Name = "uxEmailTextbox";
             uxEmailTextbox.Size = new Size(110, 23);
@@ -67,7 +66,7 @@
             // 
             // uxPasswordTextbox
             // 
-            uxPasswordTextbox.Location = new Point(344, 164);
+            uxPasswordTextbox.Location = new Point(345, 205);
             uxPasswordTextbox.Margin = new Padding(3, 2, 3, 2);
             uxPasswordTextbox.Name = "uxPasswordTextbox";
             uxPasswordTextbox.Size = new Size(110, 23);
@@ -76,38 +75,27 @@
             // uxWelcome
             // 
             uxWelcome.AutoSize = true;
-            uxWelcome.Location = new Point(324, 101);
+            uxWelcome.Location = new Point(316, 152);
             uxWelcome.Name = "uxWelcome";
-            uxWelcome.Size = new Size(141, 15);
+            uxWelcome.Size = new Size(168, 15);
             uxWelcome.TabIndex = 6;
-            uxWelcome.Text = "Welcome! Please sign up!";
+            uxWelcome.Text = "Welcome! Please sign up or in!";
             // 
             // uxSignUpButton
             // 
-            uxSignUpButton.Location = new Point(357, 202);
+            uxSignUpButton.Location = new Point(358, 243);
             uxSignUpButton.Margin = new Padding(3, 2, 3, 2);
             uxSignUpButton.Name = "uxSignUpButton";
             uxSignUpButton.Size = new Size(82, 25);
             uxSignUpButton.TabIndex = 7;
-            uxSignUpButton.Text = "Sign Up";
+            uxSignUpButton.Text = "Sign Up/In";
             uxSignUpButton.UseVisualStyleBackColor = true;
             uxSignUpButton.Click += EventHandlerSignUpButton;
-            // 
-            // uxGuestButton
-            // 
-            uxGuestButton.Location = new Point(334, 274);
-            uxGuestButton.Margin = new Padding(3, 2, 3, 2);
-            uxGuestButton.Name = "uxGuestButton";
-            uxGuestButton.Size = new Size(132, 26);
-            uxGuestButton.TabIndex = 8;
-            uxGuestButton.Text = "Continue as guest";
-            uxGuestButton.UseVisualStyleBackColor = true;
-            uxGuestButton.Click += uxGuestButton_Click;
             // 
             // uxIsAdminCheckbox
             // 
             uxIsAdminCheckbox.AutoSize = true;
-            uxIsAdminCheckbox.Location = new Point(470, 168);
+            uxIsAdminCheckbox.Location = new Point(471, 209);
             uxIsAdminCheckbox.Name = "uxIsAdminCheckbox";
             uxIsAdminCheckbox.Size = new Size(125, 19);
             uxIsAdminCheckbox.TabIndex = 9;
@@ -131,7 +119,6 @@
             ClientSize = new Size(800, 450);
             Controls.Add(uxAdminAccesButton);
             Controls.Add(uxIsAdminCheckbox);
-            Controls.Add(uxGuestButton);
             Controls.Add(uxSignUpButton);
             Controls.Add(uxWelcome);
             Controls.Add(uxPasswordTextbox);
@@ -151,7 +138,6 @@
         private TextBox uxPasswordTextbox;
         private Label uxWelcome;
         private Button uxSignUpButton;
-        private Button uxGuestButton;
         private CheckBox uxIsAdminCheckbox;
         private Button uxAdminAccesButton;
     }
