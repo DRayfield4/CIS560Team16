@@ -31,7 +31,7 @@ namespace OnlineBookstore
         private void LoadBooks()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = "SELECT ISBN, Title FROM Books WHERE IsRemoved = 0";
+            string query = "SELECT ISBN, Title FROM Books WHERE IsRemoved = 0 ORDER BY Title";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {

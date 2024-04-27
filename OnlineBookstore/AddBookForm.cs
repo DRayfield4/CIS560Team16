@@ -13,14 +13,17 @@ using Microsoft.Data.Sql;
 
 namespace OnlineBookstore
 {
+    // Class for adding a book to the database
     public partial class AddBookForm : Form
     {
+        // Constructor
         public AddBookForm()
         {
             InitializeComponent();
             this.Load += new System.EventHandler(this.AddBookForm_Load);
         }
 
+        // Event handler for the loading event - loads all the books 
         private void AddBookForm_Load(object sender, EventArgs e)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
@@ -37,6 +40,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Checks if an author exists in the database and if not, adds them
         private int EnsureAuthorExists(string authorName)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
@@ -66,7 +70,7 @@ namespace OnlineBookstore
             }
         }
 
-
+        // Event handler for the "Add Book" button
         private void uxAddBookButton_Click(object sender, EventArgs e)
         {
             string isbn = uxAddISBNTextBox.Text;
@@ -77,7 +81,6 @@ namespace OnlineBookstore
             decimal price = decimal.Parse(uxAddPriceTextBox.Text);
             DateTime publicationDate = uxAddPublicationDateDatePicker.Value;
             string publisher = uxAddPublisherTextbox.Text;
-
             int authorId = EnsureAuthorExists(author);
 
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
@@ -96,6 +99,7 @@ namespace OnlineBookstore
                 cmd.Parameters.AddWithValue("@IsRemoved", 0);
 
                 conn.Open();
+                // Must select a value to add book
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected > 0)
                 {

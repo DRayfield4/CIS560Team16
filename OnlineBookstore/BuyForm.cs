@@ -18,12 +18,16 @@ using System.Net;
 
 namespace OnlineBookstore
 {
+    // Class for checking out and buying books
     public partial class BuyForm : Form
     {
+        // The list of books a user wants to purchase
         private List<string> _booksToPurchase;
 
+        // THe user ID of the customer
         private int _userID;
 
+        // Constructor -- initializes book list and user id
         public BuyForm(List<string> booksToPurchase, int userID)
         {
             InitializeComponent();
@@ -32,6 +36,7 @@ namespace OnlineBookstore
             DisplayBooks();
         }
 
+        // Displays all the books they added to their cart from the homepage
         private void DisplayBooks()
         {
             decimal total = 0m;
@@ -46,14 +51,13 @@ namespace OnlineBookstore
             uxTotalLabel.Text = $"Total: ${total:F2}";
         }
 
+        // Event handler for pressing confirm and finalizing a purchase
         private void uxConfirmPurchase_Click(object sender, EventArgs e)
         {
             string firstName = uxFirstNameTextBox.Text;
             string lastName = uxLastNameTextBox.Text;
             string address = uxAddressTextBox.Text;
             string phone = uxPhoneNumberTextBox.Text;
-
-            // ADD ERROR HANDLING FOR FORMATTING
 
             if (InsertCustomerData(firstName, lastName, address, phone))
             {
@@ -62,6 +66,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Adds the user to the customers table after pressing the confirm purchase button and entering credentials
         private bool InsertCustomerData(string firstName, string lastName, string address, string phone)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;

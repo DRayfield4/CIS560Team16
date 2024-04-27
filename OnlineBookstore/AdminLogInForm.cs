@@ -13,6 +13,7 @@ using System.Configuration;
 
 namespace OnlineBookstore
 {
+    // Class for the admin form
     public partial class AdminLogInForm : Form
     {
         public AdminLogInForm()
@@ -20,6 +21,7 @@ namespace OnlineBookstore
             InitializeComponent();
         }
 
+        // 
         private void uxAdminLogInButton_Click(object sender, EventArgs e)
         {
             string email = uxAdminEmailTextbox.Text;

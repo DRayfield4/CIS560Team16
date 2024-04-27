@@ -17,11 +17,19 @@ using System.Data.SqlClient;
 
 namespace OnlineBookstore
 {
+    // Class users interact with -- buying and looking for books
     public partial class HomepageForm : Form
     {
+        // The total count of books in the database
         private int _maxbook = 0;
+
+        // The total of the books a user is purchasing
         private decimal price;
+
+        // The user ID
         private int _userID;
+
+        // Constructor that initializes user ID
         public HomepageForm(int userID)
         {
             InitializeComponent();
@@ -29,6 +37,7 @@ namespace OnlineBookstore
             _userID = userID;
         }
 
+        // On load up of the homepage, disables certain buttons that need conditions to be met for them to enable -- loads all books into listbox
         private void HomepageForm_Load(object sender, EventArgs e)
         {
 
@@ -36,10 +45,11 @@ namespace OnlineBookstore
             uxRemove.Enabled = false;
 
             LoadBooks();
-            _maxbook = uxBookList.Items.Count; //gets max book count
+            _maxbook = uxBookList.Items.Count;
             uxDisplaying.Text = _maxbook + " of " + _maxbook;
         }
 
+        // Loads all the books that aren't removed into the list box
         private void LoadBooks()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
@@ -57,7 +67,8 @@ namespace OnlineBookstore
                 uxBookList.DataSource = books;
             }
         }
-        /*
+        
+        // Event handler for pressing the search/filter button -- has different cases for each filter option
         private void uxSearchButton_Click(object sender, EventArgs e)
         {
             string searchterm = uxSearchBox.Text.Trim();
@@ -77,52 +88,9 @@ namespace OnlineBookstore
             }
             else
             {
-                switch (uxFilter.SelectedItem?.ToString())
-                {
-                    case "Title":
-                        ExecuteQueryFiltered("Title", searchterm);
-                        break;
-                    case "Author":
-                        ExecuteQueryFiltered("AuthorName", searchterm);
-                        break;
-                    case "ISBN":
-                        ExecuteQueryFiltered("ISBN", searchterm);
-                        break;
-                    case "Price":
-                        ExecuteQueryFiltered("Price", searchterm);
-                        break;
-                    case "Publisher":
-                        ExecuteQueryFiltered("Publisher", searchterm);
-                        break;
-                    default:
-                        MessageBox.Show("Invalid filter selection.");
-                        break;
-                }
-            }
-            uxDisplaying.Text = uxBookList.Items.Count + " of " + _maxbook;
-        }*/
-        private void uxSearchButton_Click(object sender, EventArgs e)
-        {
-            string searchterm = uxSearchBox.Text.Trim();
-            uxBookList.DataSource = null;
-
-            if (string.IsNullOrWhiteSpace(searchterm))
-            {
                 if (uxFilter.SelectedItem?.ToString() == "Genre")
                 {
-                    string selectedGenre = uxGenreComboBox.Text; // Get the selected genre from the ComboBox
-                    ExecuteQueryFiltered("GenreName", selectedGenre);
-                }
-                else
-                {
-                    LoadBooks();
-                }
-            }
-            else
-            {
-                if (uxFilter.SelectedItem?.ToString() == "Genre")
-                {
-                    string selectedGenre = uxGenreComboBox.Text; // Get the selected genre from the ComboBox
+                    string selectedGenre = uxGenreComboBox.Text;
                     ExecuteQueryFiltered("GenreName", selectedGenre);
                 }
                 else
@@ -155,6 +123,7 @@ namespace OnlineBookstore
             uxDisplaying.Text = uxBookList.Items.Count + " of " + _maxbook;
         }
 
+        // Formats how books are displayed depending on which filter option is chosen
         private void FormatBookDisplay(object sender, ListControlConvertEventArgs e)
         {
             DataRowView row = e.ListItem as DataRowView;
@@ -191,7 +160,7 @@ namespace OnlineBookstore
             }
         }
 
-
+        // Performs SQL queries for the filters -- needed special Publisher, AuthorName, and GenreName cases
         private void ExecuteQueryFiltered(string fieldName, string filter)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
@@ -240,43 +209,8 @@ namespace OnlineBookstore
                 uxBookList.Format += new ListControlConvertEventHandler(FormatBookDisplay);
             }
         }
-        /*
-        private void FormatBookDisplay(object sender, ListControlConvertEventArgs e)
-        {
-            DataRowView row = e.ListItem as DataRowView;
-            if (row != null)
-            {
-                string title = row["Title"].ToString();
-                string author = row["AuthorName"].ToString();
-                string isbn = row["ISBN"].ToString();
-                string price = String.Format("{0:C}", row["Price"]);
-                string publisher = row["Publisher"].ToString();
-                string genre = row.Row.Table.Columns.Contains("GenreName") ? row["GenreName"].ToString() : "";
-
-                switch (uxFilter.SelectedItem.ToString())
-                {
-                    case "Title":
-                        e.Value = $"{title} by {author}";
-                        break;
-                    case "Author":
-                        e.Value = $"Author: {author} - {title}";
-                        break;
-                    case "ISBN":
-                        e.Value = $"{isbn} - {title}";
-                        break;
-                    case "Genre":
-                        e.Value = $"{title} by {author} - Genre: {genre}";
-                        break;
-                    case "Price":
-                        e.Value = $"{price} - {title} by {author}";
-                        break;
-                    case "Publisher":
-                        e.Value = $"Publisher: {publisher} - {title} by {author}";
-                        break;
-                }
-            }
-        }*/
-
+        
+        // Event handler for clicking the buy button -- loads the buy form to checkout
         private void uxBuy_Click(object sender, EventArgs e)
         {
             List<string> selectedBooks = new List<string>();
@@ -289,6 +223,7 @@ namespace OnlineBookstore
             buyForm.Show();
         }
 
+        // Event handler for clicking the add button -- adds books to cart
         private void uxAdd_Click(object sender, EventArgs e)
         {
             if (uxBookList.SelectedItem != null)
@@ -308,12 +243,14 @@ namespace OnlineBookstore
             }
         }
 
+        // Updates the total price of the books the user has selected
         private void updatePrice(decimal prices)
         {
             price += prices;
             uxPrice.Text = "Total: $" + price.ToString();
         }
 
+        // Event handler to remove books from cart
         private void uxRemove_Click(object sender, EventArgs e)
         {
             if (uxBuyList.SelectedIndex != -1)
@@ -334,6 +271,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Event handler that enables the buy and remove buttons once something is in user's cart
         private void uxBuyList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (uxBuyList.Items.Count >= 1)
@@ -343,6 +281,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Event handler for detecting if the genre search filter was selected
         private void uxFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Check if filtering by genre. If so, display genre ComboBox
@@ -353,6 +292,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Load a new combobox with all the genres if it was chosen to filter by
         private void LoadGenres()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
@@ -370,6 +310,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Back button to the signup page
         private void uxBackButton_Click(object sender, EventArgs e)
         {
             SignUpForm signUpForm = new SignUpForm();

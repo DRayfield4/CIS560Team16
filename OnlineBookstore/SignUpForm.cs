@@ -5,18 +5,20 @@ using System.Windows.Forms;
 using System.Drawing;
 using System;
 using System.Security.Cryptography;
-using YourNamespace;
 using System.Text;
 
 namespace OnlineBookstore
 {
+    // Class for the sign up form
     public partial class SignUpForm : Form
     {
+        // Constructor
         public SignUpForm()
         {
             InitializeComponent();
         }
 
+        // Event handler for clicking the signup button -- must enter credentials
         private void EventHandlerSignUpButton(object sender, EventArgs e)
         {
             string email = uxEmailTextbox.Text;
@@ -43,6 +45,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Encrypts a password with SHA256
         private string HashPassword(string password)
         {
             using (SHA256 sha256Hash = SHA256.Create())
@@ -57,6 +60,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Checks if a user is already in the database. If not, adds them
         private int GetUserOrCreate(string email, string passwordHash, bool isAdmin)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
@@ -70,7 +74,7 @@ namespace OnlineBookstore
             {
                 connection.Open();
 
-                // First, try to get an existing user
+                // Try to get an existing user
                 using (SqlCommand command = new SqlCommand(checkQuery, connection))
                 {
                     command.Parameters.AddWithValue("@Email", email);
@@ -78,10 +82,10 @@ namespace OnlineBookstore
                     object result = command.ExecuteScalar();
 
                     if (result != null)
-                        return (int)result;  // User exists, return existing UserID
+                        return (int)result;
                 }
 
-                // If no existing user, create a new one
+                // If user doesn't exist, create a new one
                 using (SqlCommand command = new SqlCommand(insertQuery, connection))
                 {
                     command.Parameters.AddWithValue("@Email", email);
@@ -89,17 +93,18 @@ namespace OnlineBookstore
                     command.Parameters.AddWithValue("@IsAdmin", isAdmin);
                     try
                     {
-                        return (int)command.ExecuteScalar();  // Return new UserID
+                        return (int)command.ExecuteScalar();
                     }
                     catch (SqlException ex)
                     {
-                        MessageBox.Show("SQL Error: " + ex.Message);
-                        return -1;  // Error or duplicate key
+                        MessageBox.Show("User already exists.");
+                        return -1;
                     }
                 }
             }
         }
 
+        // Event handler for clicking the admin access button -- loads the admin login form
         private void uxAdminAccesButton_Click(object sender, EventArgs e)
         {
             AdminLogInForm adminLoginForm = new AdminLogInForm();

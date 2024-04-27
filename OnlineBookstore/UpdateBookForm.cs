@@ -30,7 +30,7 @@ namespace OnlineBookstore
         private void LoadBooks()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
-            string query = "SELECT ISBN, Title, AuthorName FROM Books JOIN Authors ON Books.AuthorID = Authors.AuthorID";
+            string query = "SELECT ISBN, Title, AuthorName FROM Books JOIN Authors ON Books.AuthorID = Authors.AuthorID ORDER BY Title";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, conn);

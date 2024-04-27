@@ -13,13 +13,16 @@ using Microsoft.Data.Sql;
 
 namespace OnlineBookstore
 {
+    // Class for the admin form
     public partial class AdminForm : Form
     {
+        // Constructor
         public AdminForm()
         {
             InitializeComponent();
         }
 
+        // Event handler for the queries combo box
         private void uxAggregatingQueriesComboBox_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             uxResultListBox.Items.Clear();
@@ -44,13 +47,14 @@ namespace OnlineBookstore
             }
         }
 
+        // Even handler for the result button click. Routes users to appropriate query code
         private void uxResultButton_Click(object sender, EventArgs e)
         {
             uxResultListBox.Items.Clear();
 
             string selectedQuery = uxAggregatingQueriesComboBox.SelectedItem.ToString();
 
-            if (selectedQuery.Contains("---") || selectedQuery.Contains("Select"))
+            if (selectedQuery.Contains("---"))
             {
                 MessageBox.Show("Invalid option. Please select a valid query.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -85,6 +89,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Aggregating query 1
         private void ExecuteQuery1()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
@@ -119,6 +124,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Aggregating query 2
         private void ExecuteQuery2()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
@@ -151,6 +157,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Aggregating query 3
         private void ExecuteQuery3(DateTime startDate, DateTime endDate)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
@@ -199,7 +206,8 @@ namespace OnlineBookstore
                         int year = (int)reader["Year"];
                         int month = (int)reader["Month"];
                         decimal totalRevenue = (decimal)reader["TotalRevenue"];
-                        decimal? previousMonthRevenue = reader["PreviousMonthRevenue"] as decimal?; // Null maye change this
+                        decimal? previousMonthRevenue = reader["PreviousMonthRevenue"] as decimal?;
+                        // A bunch of null checks on MonthlChangePercentage - Source: https://stackoverflow.com/questions/19058824/using-column-name-when-using-sqldatareader-isdbnull
                         decimal monthlyChangePercentage = reader.IsDBNull(reader.GetOrdinal("MonthlyChangePercentage")) ? 0 : (decimal)reader["MonthlyChangePercentage"];
 
                         uxResultListBox.Items.Add($"Year: {year}, Month: {month}, Revenue: {totalRevenue:C}, Previous: {previousMonthRevenue:C}, Change: {monthlyChangePercentage:N2}%");
@@ -208,6 +216,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Aggregating query 4
         private void ExecuteQuery4(DateTime startDate, DateTime endDate)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
@@ -261,6 +270,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Query for displaying all users
         private void ExecuteQueryAllUsers()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
@@ -284,6 +294,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Query for displaying all books
         private void ExecuteQueryAllBooks()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
@@ -312,6 +323,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Query for displaying highest selling years
         private void ExecuteQueryHighestSellingYears()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
@@ -343,24 +355,28 @@ namespace OnlineBookstore
             }
         }
 
+        // Creates a new add book form
         private void uxAddBookButton_Click(object sender, EventArgs e)
         {
             AddBookForm addBookForm = new AddBookForm();
             addBookForm.ShowDialog();
         }
 
+        // Creates a new update book form
         private void uxUpdateBookButton_Click(object sender, EventArgs e)
         {
             UpdateBookForm updateBookForm = new UpdateBookForm();
             updateBookForm.ShowDialog();
         }
 
+        // Creates a new remove book form
         private void uxRemoveBookButton_Click(object sender, EventArgs e)
         {
             RemoveBookForm removeBookForm = new RemoveBookForm();
             removeBookForm.ShowDialog();
         }
 
+        // Goes back to the sign up page
         private void uxBackButton_Click(object sender, EventArgs e)
         {
             SignUpForm signUpForm = new SignUpForm();
