@@ -13,7 +13,7 @@ The goal of this project was to create a system that could store a database of b
 
     Then connect.
 4. Once connected, right click on the databases folder and select "Import Data-tier Application..."
-5. Select the "OnlineBookstore.backpac" file and follow the prompts.
+5. Select the "OnlineBookstore.bacpac" file and follow the prompts.
 6. Once added successfully, the database is ready to go.
 7. Now click the "OnlineBookstore.sln" file to open in Visual Studio or open the "OnlineBookstore" folder in your preferred IDE.
 8. Once open, confirm that in the "App.config" file, the connection string is as follows:
