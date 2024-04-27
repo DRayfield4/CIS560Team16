@@ -231,7 +231,7 @@ namespace OnlineBookstore
                         GROUP BY c.CustomerID
                       ),
                       TotalCustomers AS (
-                        SELECT COUNT(*) AS Total FROM Customers  -- Total customers in the database
+                        SELECT COUNT(*) AS Total FROM Customers
                       )
                     SELECT 
                         CASE 
@@ -242,7 +242,7 @@ namespace OnlineBookstore
                         COUNT(*) AS NumberOfCustomers,
                         COUNT(*) * 100.0 / TotalCustomers.Total AS PercentageOfTotalCustomers
                     FROM CustomerFrequency
-                    CROSS JOIN TotalCustomers  -- Get total customers count for percentage calculation
+                    CROSS JOIN TotalCustomers
                     GROUP BY 
                         CASE 
                             WHEN NumberOfOrders = 1 THEN 'Single Purchase'

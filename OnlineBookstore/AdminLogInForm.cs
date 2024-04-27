@@ -21,7 +21,7 @@ namespace OnlineBookstore
             InitializeComponent();
         }
 
-        // 
+        // Event handler for pressing the signup/login button -- sends to validae user
         private void uxAdminLogInButton_Click(object sender, EventArgs e)
         {
             string email = uxAdminEmailTextbox.Text;
@@ -45,6 +45,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Validates and checks if a user is an admin and in the database
         private bool ValidateAdminLogin(string email, string password)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
@@ -63,6 +64,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Encrypts passwords using SHA256
         private string HashPassword(string password)
         {
             using (SHA256 sha256Hash = SHA256.Create())
@@ -77,6 +79,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Back button to return to normal signup page
         private void uxReturnToSignUp_Click(object sender, EventArgs e)
         {
             SignUpForm signUpForm = new SignUpForm();

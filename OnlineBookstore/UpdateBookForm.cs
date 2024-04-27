@@ -13,20 +13,24 @@ using Microsoft.Data.Sql;
 
 namespace OnlineBookstore
 {
+    // Class for updating a book form
     public partial class UpdateBookForm : Form
     {
+        // Constructor -- on load up, adds all books to a listbox
         public UpdateBookForm()
         {
             InitializeComponent();
             this.Load += new System.EventHandler(this.UpdateBookForm_Load);
         }
 
+        // Loads all the books
         private void UpdateBookForm_Load(object sender, EventArgs e)
         {
             LoadBooks();
             LoadGenres();
         }
 
+        // Loads all books and displays all book info on selection
         private void LoadBooks()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
@@ -47,6 +51,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Adds all genres to a combobox for alteration
         private void LoadGenres()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
@@ -62,6 +67,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Gets the ISBN of the selected book and calls the LoadBookDetails method
         private void uxBooksListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (uxBooksListBox.SelectedItem != null)
@@ -71,6 +77,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Loads all book details and displays all its info in their respective boxes
         private void LoadBookDetails(string isbn)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
@@ -104,6 +111,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Event handler for clicking the update button -- updates the book info. with all values entered
         private void uxUpdateBookButton_Click(object sender, EventArgs e)
         {
             string isbn = uxUpdateISBNTextBox.Text;
@@ -152,6 +160,7 @@ namespace OnlineBookstore
             }
         }
 
+        // Checks if an author already exists
         private int EnsureAuthorExists(string authorName)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineBookstoreDb"].ConnectionString;
